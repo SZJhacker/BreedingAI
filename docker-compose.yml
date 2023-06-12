@@ -1,0 +1,78 @@
+version: "3"
+
+services: 
+    db:
+        image: mysql
+        security_opt:
+            - seccomp:unconfined
+        environment: 
+            - MYSQL_ROOT_PASSWORD=sn726300 # 用户密码
+            - MYSQL_DATABASE=rice # 数据库名称
+        ports:
+            - "3306:3306" # 与配置文件保持一致
+        networks:
+            - net
+        restart: always
+        command: --character-set-server=utf8mb4
+        # volumes: 
+   
+    web:
+        build: ./riceprediction # 使用该目录下的Dockerfile
+        volumes: 
+            - "./riceprediction:/gBreeder"
+        depends_on: # 依赖关系
+            - db
+            - blast
+            - jbrowse
+        environment:
+            - DEBUG=False
+            - TZ=Asia/Shanghai
+        restart: always
+        ports:
+            - "8000:5000" # 与配置文件保持一致
+        networks:
+            - net
+        tty: true
+        stdin_open: true
+   
+    # nginx:
+    #     build: ./nginx
+    #     depends_on:
+    #         - web
+    #     restart: always
+    #     networks:
+    #         - net
+    #     ports:
+    #         - "8000:80"
+    #     volumes:
+    #         - ./nginx/log:/var/log/nginx
+    
+    blast:
+        build: ./blast
+        restart: always
+        ports: 
+            - "4567:4567"
+        networks: 
+            - net
+        tty: true
+
+    # jbrowse:
+    #     build: ./jbrowse
+    #     restart: always
+    #     # volumes_from: 
+    #     networks:
+    #         - net
+    #     ports: 
+    #         - "5001:5001"
+    jbrowse:
+        build: ./jbrowse
+        # image: rice_docker_jbrowse
+        ports:
+            - "5001:5001"
+        command: npx http-server -a 0.0.0.0 -p 5001
+        networks:
+            - net
+        restart: always        
+
+networks:
+    net:

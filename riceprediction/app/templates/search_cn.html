@@ -1,0 +1,22 @@
+{% extends "layout_cn.html" %}
+{% block content %}
+<br>
+{% from 'bootstrap4/pagination.html' import render_pagination %}
+{% from 'bootstrap4/table.html' import render_table %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="container-fluid">
+        <h3>水稻信息</h3>
+        <form class="d-flex" action="{{ url_for('v1.search_cn') }}" method="get"  role="form" enctype="multipart/form-data">
+            {{ form.csrf_token() }}
+            <input class="form-control orm-control me-sm-2" id="accession" name="accession" placeholder="品种名称" type="search" value="">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<hr>
+{{ render_table(pagination.items, titles=[('assay', '实验编号'), ('accession', '品种名称'),
+('country_cn', '国家'), ('sampleset','数据来源'), ('name_cn','中文名称')], header_classes='thead-light', responsive=True, responsive_class='table-responsive',) }}
+
+{{ render_pagination(pagination, prev='«', next='»', ellipses='…', size='lg', align='center') }}
+{% endblock %}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% block styles %}
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+   
+    <!-- Bootstrap JS -->
+    {% block script %}
+    {{ bootstrap.load_js() }}
+    {% endblock %}
+
+    <title>BreedingAI</title>
+    <link rel="icon" href="{{ url_for('v1.static', filename='img/title.ico') }}" type="image/x-icon">
+    {% endblock %}
+</head>
+
+<body>
+    {% block navbar %}
+    <nav class='navbar'>
+        <div class="container">
+            <a href="{{ url_for('v1.index_cn') }}"><img height='60' src="{{ url_for('v1.static', filename='img/title2.jpg') }}"
+                    alt="gBreeder"></a>
+        </div>
+    </nav>
+    {% from 'bootstrap4/nav.html' import render_nav_item, render_breadcrumb_item %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class='container'>
+            <ul class="navbar-nav">
+                {{ render_nav_item('v1.index_cn', '主页', use_li=True)}}
+                {{ render_nav_item('v1.jbrowse_cn', '基因组浏览', use_li=True)}}
+                {{ render_nav_item('v1.prediction_cn', '水稻表型预测', use_li=True)}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">搜索</a>
+                    <div class="dropdown-menu" data-bs-popper="none">
+                        <a class="dropdown-item" href="{{ url_for('v1.blast_cn') }}">序列搜索</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('v1.search_cn') }}">信息搜索</a>
+                    </div>
+                </li>
+                {{ render_nav_item('v1.about_cn', '帮助', use_li=True) }}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">分子设计育种</a>
+                    <div class="dropdown-menu" data-bs-popper="none">
+                        <a class="dropdown-item" 
+                        href="http://ibi.zju.edu.cn/CTREP/">水稻外源基因片段检测</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" 
+                        href="http://ibi.zju.edu.cn/ricerelativesgd/">水稻功能基因数据库</a>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav navbar-white ms-md-auto">
+                {{ render_breadcrumb_item('v1.index', 'English')}}
+                {{ render_breadcrumb_item('v1.index_cn', '中文版')}}
+            </ul>
+        </div>
+    </nav>
+    {% endblock %}
+    <!-- Your page content -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block footer %}
+
+    <div class="container">
+        <hr class="container" style="border-color: #65cdaa; border: dashed; "><br>
+
+        <div class="row clearfix">
+            <div class="col-lg-3 column">
+                <!-- <img src="{{url_for('static', filename = 'img/zju.png')}}" width="90%"> -->
+                <script type="text/javascript" src="//rf.revolvermaps.com/0/0/1.js?i=55x4wmoxay0&amp;s=220&amp;m=0&amp;v=false&amp;r=false&amp;b=000000&amp;n=false&amp;c=ff0000" async="async"></script>
+            </div>
+
+            <div class="col-lg-9 column">
+                <!-- <div class="row">
+                    <span style="padding-left: 20px;  font-size: 25px;">引用</span>
+                </div>
+                <hr>
+                <div class="row" style="font: 1.25em Georgia;background: white;">
+                    <p style="font-size: 18px; padding-top: - 20px; padding-left: 20px;">Zijie Shen, <b>Enhui
+                            Shen*</b> and <b>Longjiang Fan*</b> </p>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="background-color:#eee;">
+        <p class="text-center" style="margin: 15px">
+            Copyright&copy; 2020-2021 Institute of Crop Sciences / Institute of Bioinformatics, Zhejiang University. All
+            rights reserved.<br />
+            Any questions or suggestions, please contact the <a target=_blank
+                href="http://ibi.zju.edu.cn/bioinplant/">Fan's lab</a>,
+            <a href="mailto:bioinplant@zju.edu.cn">bioinplant@zju.edu.cn</a> . Last modified at 2021-03-01.
+            Copyright&copy;2017-2018 Institute of Crop Sciences / Institute of Bioinformatics, Zhejiang University.
+        </p>
+    </div>
+
+    {% endblock %}
+
+</body>
+
+</html>

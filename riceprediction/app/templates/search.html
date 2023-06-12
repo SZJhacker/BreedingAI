@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+{% from 'bootstrap4/pagination.html' import render_pagination %}
+{% from 'bootstrap4/table.html' import render_table %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <h3>Rice Information</h3>
+        <form class="d-flex" action="{{ url_for('v1.search') }}" method="get"  role="form" enctype="multipart/form-data">
+            {{ form.csrf_token() }}
+            <input class="form-control orm-control me-sm-2" id="accession" name="accession" placeholder="Variety accession" type="search" value="">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<hr>
+{{ render_table(pagination.items, titles=[ ('assay', 'Genotype_assay_ID'), ('accession', 'Accession'),
+('country', 'Country'), ('sampleset','Source'), ('name_cn','Chinese_name')], header_classes='thead-light', responsive=True, responsive_class='table-responsive',) }}
+
+{{ render_pagination(pagination, prev='«', next='»', ellipses='…', size='lg', align='center') }}
+{% endblock %}

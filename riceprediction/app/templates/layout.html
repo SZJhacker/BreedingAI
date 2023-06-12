@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block styles %}
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+
+    {% block script %}
+    <!-- Optional JavaScript -->
+    {{ bootstrap.load_js() }}
+    {% endblock %}
+
+     <!-- log图标 -->
+    <title>BreedingAI</title>
+    <link rel="icon" href="{{ url_for('v1.static', filename='img/icon.svg') }}" type="image/x-icon">
+    {% endblock %}
+</head>
+
+<body>
+    {% block navbar %}
+    <nav class='navbar'>
+        <div class="container">
+            <a href="{{ url_for('v1.index') }}"><img height='60'
+                    src="{{ url_for('v1.static', filename='img/title2.jpg')}}" alt="BreedingAI"></a>
+        </div>
+    </nav>
+    {% from 'bootstrap4/nav.html' import render_nav_item, render_breadcrumb_item %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <ul class="navbar-nav">
+                {% set nav_items = [
+                                    {'url': 'v1.index', 'title': 'Home'}, 
+                                    { 'title'   : 'Download',
+                                      'dropdown': [ {'url': url_for('v1.download', spiece='rice'), 'title': 'Rice'},
+                                                    {'url': url_for('v1.download', spiece='Zea'), 'title': 'Zea'},
+                                                    {'url': url_for('v1.download', spiece='soy'), 'title': 'Soybean'},
+                                                   ],
+                                    },
+                                    {'title': 'ML',
+                                     'dropdown': [
+                                        {'url': url_for('v1.features'), 'title': 'FeatureExtraction'},
+                                        {'url': url_for('v1.prediction'), 'title': 'Predction'},
+                                        ], 
+                                    },
+                                    {'url':'v1.upload', 'title':'Upload'},
+                                    {'title': 'Stats',
+                                      'dropdown': [
+                                        {'url': url_for('v1.stats', spiece='rice'), 'title': 'Rice'},
+                                        {'url': url_for('v1.stats', spiece='Zea'), 'title': 'Zea'},
+                                        {'url': url_for('v1.stats', spiece='soy'), 'title': 'Soybean'},
+                                        ], 
+                                    },
+                                    {'url': 'v1.about', 'title': 'Help'},
+                                    ] 
+                %}
+                {% for nav_item in nav_items %}
+                    {% if nav_item.dropdown %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">{{ nav_item.title }}</a>
+                        <div class="dropdown-menu">
+                            {% for dropdown_item in nav_item.dropdown %}
+                            <a class="dropdown-item" href="{{ dropdown_item.url }}">{{ dropdown_item.title }}</a>
+                            {% if not loop.last %}
+                            <div class="dropdown-divider"></div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        {{ render_nav_item(nav_item.url, nav_item.title) }}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul class="navbar-nav ms-md-auto">
+                {{ render_breadcrumb_item('v1.index', 'English') }}
+                {{ render_breadcrumb_item('v1.index_cn', '中文') }}
+            </ul>
+        </div>
+    </nav>
+    {% endblock %}
+    <!-- Your page content -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block footer %}
+
+    <div class="container">
+        <hr class="container" style="border-color: #65cdaa; border: dashed;"><br>
+
+        <div class="row clearfix">
+            <div class="col-lg-3 column">
+                <script type="text/javascript"
+                    src="//rf.revolvermaps.com/0/0/1.js?i=55x4wmoxay0&amp;s=220&amp;m=0&amp;v=false&amp;r=false&amp;b=000000&amp;n=false&amp;c=ff0000"
+                    async="async"></script>
+                <!-- <img src="{{url_for('static', filename = 'img/zju.png')}}" width="90%"> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="background-color:#eee;">
+        <p class="text-center" style="margin: 15px">
+            Copyright&copy; 2020-2021 Institute of Crop Sciences / Institute of Bioinformatics, Zhejiang University. All
+            rights reserved.<br />
+            Any questions or suggestions, please contact the <a target=_blank
+                href="http://ibi.zju.edu.cn/bioinplant/">Fan's lab</a>,
+            <a href="mailto:bioinplant@zju.edu.cn">bioinplant@zju.edu.cn</a> . Last modified at 2021-03-01.
+            Copyright&copy;2017-2018 Institute of Crop Sciences / Institute of Bioinformatics, Zhejiang University.
+        </p>
+    </div>
+
+    {% endblock %}
+</body>
+
+</html>

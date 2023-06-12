@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% from 'bootstrap4/form.html' import render_field %}
+<form method="post" method="post" enctype="multipart/form-data">
+    {{ form.csrf_token() }}
+    <p>本次特征特征提取使用的gff3文件为https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/zea_mays/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.56.gff3.gz</p>
+    <p>本次特征特征提取使用的gff3文件为https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/glycine_max/Glycine_max.Glycine_max_v2.1.56.gff3.gz</p>
+    <p>本次特征特征提取使用的gff3文件为https://rapdb.dna.affrc.go.jp/download/archive/irgsp1/IRGSP-1.0_representative_2023-03-15.tar.gz</p>
+    {{ render_field(form.spieces) }}
+    {{ render_field(form.file) }}
+    {{ render_field(form.submit) }}
+</form>
+{% endblock %}

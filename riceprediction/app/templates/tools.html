@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% from 'bootstrap4/form.html' import render_field, render_form %}
+<br>
+<div>
+    <p>This tool allows you to convert rice IDs between MSU and RAP. </p>
+    <button value='1' onclick="examples(this.value)" class="btn btn-success">Load Examples for Rice</button>
+    <form id='ricegene' action="{{ url_for('v1.tools', formid=1) }}" method="post">
+        {{ form.hidden_tag() }}
+        <!-- <input type="hidden" style="visibility: hidden;" id="rice" value="rice"> -->
+        {{ render_field(form.genes, class='form-control', id='ricegenes', rows='8') }}
+        {{ render_field(form.submit) }}
+    </form>
+</div>
+<div>
+    <p>This tool allows you to convert maize(B37) IDs history. </p>
+    <button value='2' onclick="examples(this.value)" class="btn btn-success">Load Examples for Zea</button>
+    <form id='zeagene' action="{{ url_for('v1.tools', formid=2) }}" method="post">
+        {{ form.hidden_tag() }}
+        <!-- <input type="hidden" style="visibility: hidden;" id="zea" value="zea"> -->
+        {{ render_field(form.genes, class='form-control', id='zeagenes', rows='8') }}
+        {{ render_field(form.submit) }}
+    </form>
+</div>
+<div>
+    <p>This tool allows you to convert soybean(Williams 82) IDs history. </p>
+    <button value='3' onclick="examples(this.value)" class="btn btn-success">Load Examples for Soybean</button>
+    <form id='soygene' action="{{ url_for('v1.tools', formid=3) }}" method="post">
+        {{ form.hidden_tag() }}
+        <!-- <input type="hidden" style="visibility: hidden;" id="soy" value="soy"> -->
+        {{ render_field(form.genes, class='form-control', id='soygenes', rows='8') }}
+        {{ render_field(form.submit) }}
+    </form>
+</div>
+<script>
+    function examples(selection) {
+        switch(selection) {
+            case '1': document.getElementById('ricegenes').innerHTML='Os01g0100700\nLOC_Os01g01190'; break; 
+            case '2': document.getElementById('zeagenes').innerHTML='Zm00001eb000020\nZm00001eb144010\nZm00001eb192710\nZm00001eb261510'; break;
+            case '3': document.getElementById('soygenes').innerHTML='Glyma01g26650\nGlyma01g41630\nGlyma02g02990\nGlyma02g15220'; break;
+        }
+    }
+</script>
+{% endblock %}

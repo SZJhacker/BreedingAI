@@ -1,0 +1,121 @@
+*** Starting uWSGI 2.0.18-debian (64bit) on [Sat May 15 22:04:12 2021] ***
+compiled with version: 10.0.1 20200405 (experimental) [master revision 0be9efad938:fcb98e4978a:705510a708d3642c9c962beb663c476167e4e8a4] on 11 April 2020 11:15:55
+os: Linux-5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020
+nodename: DESKTOP-BJUBMR7
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /mnt/d/rice_docker/riceprediction
+detected binary path: /usr/bin/uwsgi-core
+chdir() to /mnt/d/rice_docker/riceprediction
+your processes number limit is 101830
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:5000 fd 3
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 6589)
+spawned uWSGI worker 1 (pid: 6590, cores: 1)
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+invalid request block size: 21573 (max 4096)...skip
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 0 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18-debian (64bit) on [Sat May 15 22:19:55 2021] ***
+compiled with version: 10.0.1 20200405 (experimental) [master revision 0be9efad938:fcb98e4978a:705510a708d3642c9c962beb663c476167e4e8a4] on 11 April 2020 11:15:55
+os: Linux-5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020
+nodename: DESKTOP-BJUBMR7
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /mnt/d/rice_docker/riceprediction
+detected binary path: /usr/bin/uwsgi-core
+chdir() to /mnt/d/rice_docker/riceprediction
+your processes number limit is 101830
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:8002 fd 3
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 7104)
+spawned uWSGI worker 1 (pid: 7105, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18-debian (64bit) on [Sat May 15 22:25:00 2021] ***
+compiled with version: 10.0.1 20200405 (experimental) [master revision 0be9efad938:fcb98e4978a:705510a708d3642c9c962beb663c476167e4e8a4] on 11 April 2020 11:15:55
+os: Linux-5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020
+nodename: DESKTOP-BJUBMR7
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /mnt/d/rice_docker/riceprediction
+detected binary path: /usr/bin/uwsgi-core
+chdir() to /mnt/d/rice_docker/riceprediction
+your processes number limit is 101830
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:8002 fd 3
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 7332)
+spawned uWSGI worker 1 (pid: 7333, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 0 seconds
+goodbye to uWSGI.

@@ -1,0 +1,71 @@
+{% extends "layout_cn.html" %}
+{% block style %}
+{{ supper() }}
+<style>
+    /* Make the image fully responsive */
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!--轮播图区域-->
+<br>
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+    <!-- 指示符 -->
+    <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+
+    <!-- 轮播图片 -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{{url_for('v1.static', filename = 'img/111.jpg')}}" width="100%">
+        </div>
+        <div class="carousel-item">
+            <img src="{{url_for('v1.static', filename = 'img/112.jpg')}}" width="100%">
+        </div>
+        <div class="carousel-item">
+            <img src="{{url_for('v1.static', filename = 'img/113.jpg')}}" width="100%">
+        </div>
+    </div>
+
+    <!-- 左右切换按钮 -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+
+</div>
+<!-- 轮播结束 -->
+
+<!-- 正文内容 -->
+<br>
+<div class="row">
+
+    <div class="panel-header">
+        <h1>欢迎使用gBreeder</h1>
+    </div>
+    <br>
+    <div class="panel-body">
+        <p>水稻（<i> Oryza sativa</i>
+            L.）品种/品系遗传背景的准确评价对于品种审定和鉴定至关重要。
+            传统分子标记法在品种鉴定中存在基因组覆盖度有限、品种遗传特征代表性不足等问题。
+            我们收集了来自世界各地约6000个水稻品种的重测序数据，利用水稻品种内基因组遗传多态性，提出了基于基因组重测序的水稻品种同质性评估方法，实现了<a href="{{ url_for('v1.classify_cn') }}">品种同质性分析(VarietyFace)</a>平台搭建。
+        </p>
+        <p>
+            基因编辑技术的快速发展为分子设计育种提供了有力的工具，机器学习可以解释人类无法理解的基因组和农艺性状之间的关系。我们利用机器学习方法，寻找水稻基因组与不同表型信息之间的关系，构建 <a href="{{ url_for("v1.prediction_cn") }}">水稻表型预测模型</a> ，协助水稻育种家完成设计育种。
+        </p>
+    </div>
+
+</div>
+
+<!-- 内容结束 -->
+{% endblock %}

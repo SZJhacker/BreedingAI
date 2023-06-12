@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+{{ super() }}
+<!-- <script  type='text/javascript' src="{{ url_for('v1.static', filename='js/plotly-2.14.0.min.js') }}"></script> -->
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+{% endblock %}
+
+
+{% block content %}
+<div id='chart1' class='chart'></div>
+<div id='chart2' class='chart'></div>
+
+<script type='text/javascript'>
+    var graphs_distri = {{graphJSON_distri | safe}};
+    Plotly.plot('chart1', graphs_distri, {});
+    
+    var graphs_ratio = {{graphJSON_ratio | safe}};
+    Plotly.plot('chart2', graphs_ratio, {});
+</script>
+
+{% endblock %}

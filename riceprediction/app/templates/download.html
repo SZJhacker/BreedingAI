@@ -1,0 +1,160 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+{{ bootstrap.load_css() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block script %}
+{{ bootstrap.load_js() }}
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+{% endblock script %}
+
+{% block content %}
+<br>
+<!-- 下拉框 -->
+<select id="mySelect" aria-label="Select Phenotype">
+    {% for pheno in phenos %}
+    <option value='{{ pheno }}'>{{ pheno }}</option>
+    {% endfor %}
+</select>
+<!-- 下拉框 end -->
+
+<!-- 表型分布图 start -->
+<div id="chart"></div>
+<script type="text/javascript" language="javascript" type="text/javascript" class="init">
+    var graphs = {{ graphJSON | safe }};
+    Plotly.newPlot('chart', graphs, {}); 
+</script>
+<!-- 表型分布图 end -->
+
+<!-- 表型和数据路径下载表格 -->
+<table id='myTable' class="table diaplay" style="width:100%">
+    <thead class="table-dark">
+        <tr>
+            {% for header in phenotable.columns %}
+            <th>{{ header }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for index, row in phenotable.iterrows() %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+  
+<!-- 表型和数据路径下载表格 end -->
+
+<script>
+    $(document).ready(function () {
+        function initDataTable() {
+            $('#myTable').DataTable({
+              dom:
+                '<"row"<"col-md-6"B><"col-md-6 d-flex justify-content-end"f>>' +
+                '<"row"<"col-md-12"tr>>' +
+                '<"row"<"col-md-5"i><"col-md-7 d-flex justify-content-end"p>>',
+              buttons: [
+                {
+                  extend: 'csv',
+                  text: 'Export CSV',
+                  className: 'btn btn-primary'
+                },
+                {
+                  extend: 'excel',
+                  text: 'Export Excel',
+                  className: 'btn btn-primary'
+                }
+              ]
+            });
+          
+            $('.dataTables_filter label').addClass('form-inline');
+        }
+
+        initDataTable();  
+        // 将 spiece 赋值给 JavaScript 变量
+        var spiece = "{{ spiece }}";
+        
+        function updateChartAndTable(Phenotype) {
+            // 发送 Ajax 请求获取更新的数据
+            $.ajax({
+                url: "{{ url_for('v1.download', spiece = spiece ) }}",
+                data: { 'data': Phenotype },
+                dataType: 'json',
+                type: "POST",
+                success: function (response) {
+                    updateChart(response['fig']);
+                    updateTable(response['table']);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // 处理错误
+                    console.log('请求失败：' + textStatus);
+                    console.log('错误信息：' + errorThrown);
+                    alert('请求失败：' + textStatus + '，错误信息：' + errorThrown);
+                }
+            });
+        }
+        
+        function updateChart(phenofig) {
+            var PhenoJson = JSON.parse(phenofig);
+            Plotly.newPlot('chart', PhenoJson, {});
+            console.log('图片更新结束');
+        }
+        
+        function updateTable(Table) {
+            $('#myTable').DataTable().destroy();
+            var TableJson = JSON.parse(Table);
+            var tableHeader = $('#myTable thead');
+            tableHeader.empty();
+            var headers = TableJson.columns;
+            var headerRow = $('<tr></tr>');
+            for (let i = 0; i < headers.length; i++) {
+                var header = headers[i];
+                var td = $('<td></td>').text(header);
+                headerRow.append(td);
+            };
+            tableHeader.append(headerRow);
+        
+            var tableBody = $('#myTable tbody');
+            tableBody.empty();
+            var rows = TableJson.data;
+            for (let i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var tableRow = $('<tr></tr>');
+                for (let j = 0; j < row.length; j++) {
+                    var cell = row[j];
+                    var td = $('<td></td>').text(cell);
+                    tableRow.append(td);
+                };
+                tableBody.append(tableRow);
+            };
+            initDataTable();        
+        }
+        
+        $(document).ready(function () {
+            // 监听下拉框的变化事件
+            $('#mySelect').on('change', function () {
+                var Phenotype = $(this).val(); // 获取选中的选项
+                updateChartAndTable(Phenotype); // 更新表格和图表内容
+            });
+        });    
+    });   
+</script>
+
+<script>
+</script>
+
+{% endblock content %}

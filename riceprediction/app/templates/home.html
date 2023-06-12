@@ -1,0 +1,49 @@
+<!--
+ * @Author: shenzijie
+ * @Date: 2022-10-17 00:43:37
+ * @LastEditors: shenzijie
+ * @LastEditTime: 2023-06-06 00:24:39
+ * @Email: shenzijie2013@163.com
+-->
+{% extends "layout.html" %}
+{% block script %}
+{{ super() }}
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script>
+{% endblock %}
+
+{% block content %}
+<!--地图-->
+
+<!-- 地图 end -->
+
+<!-- 正文内容 -->
+<br>
+<div id="china"  style="width:1000px; height:800px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('china'));
+    
+    var option = {{ map_charts | safe }};
+
+    myChart.setOption(option);
+</script>
+
+<div class="row">
+    <div class="panel-header">
+        <h1>Welcome to BreedingAI</h1>
+    </div>
+
+    <div class="panel-body">
+        <p>Breeding is a crucial component of human agricultural production, and in order to meet the ever-increasing
+            demand for food, it is imperative that we continually enhance the yield and quality of our crops. ML in
+            breeding still faces many challenges and limitations, such as data, algorithm selection, and other issues.
+        </p>
+        <p>We gathered genome-phenotype pair data for three crops that are currently accessible to the public. The
+            processing of genome resequencing data followed the best practice guidelines established by the Genome
+            Sequencing and Analysis (GSA) team at the Broad Institute's GATK development team.</p>
+    </div>
+</div>
+
+
+<!-- 内容结束 -->
+{% endblock %}

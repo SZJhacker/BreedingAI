@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+{% endblock%}
+
+{% block content %}
+<br>
+<table id='myTable' class="table display">
+    {% if formid == 1 %}        
+        <thead>
+            <tr class="table-light">
+                <th>RAP</th>
+                <th>MUS</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for gene in genes %}
+        <tr>
+            <td>{{ gene.rap }}</td>
+            <td>{{ gene.mus }}</td>
+        </tr>                
+        {% endfor %}
+        </tbody>
+    {% elif formid == 2 %}
+        <thead>
+            <tr class="table-light">
+                <th>V5</th>
+                <th>V4</th>
+                <th>V3</th>
+                <th>Symbol</th>
+                <th>FullName</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gene in genes %}
+            <tr>
+                <td>{{ gene.v5 }}</td>
+                <td>{{ gene.v4 }}</td>
+                <td>{{ gene.v3 }}</td>
+                <td>{{ gene.symbol }}</td>
+                <td>{{ gene.fullname }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <thead>
+            <tr class="table-light">
+                <th>Glyma1.1</th>
+                <th>Glyma2.0</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gene in genes %}
+            <tr>
+                <td>{{ gene.v1 }}</td>
+                <td>{{ gene.v2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
+
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

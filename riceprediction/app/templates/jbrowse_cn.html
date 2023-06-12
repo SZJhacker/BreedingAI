@@ -1,0 +1,20 @@
+{% extends "layout_cn.html" %}
+
+{% block content %}
+
+<br>
+<div class="row">
+    <h1>水稻基因组变异信息浏览</h1>
+</div>
+<div class='row'>
+    <p>本功能模块提供大量的水稻变异信息。</p>
+</div>
+<br>
+<!-- src="http://10.75.119.190:5001"> -->
+<div>
+    <iframe width=100% height=600px scrolling=no frameborder=0
+        src="jbrowse:5001">
+    </iframe>
+</div>
+
+{% endblock %}
