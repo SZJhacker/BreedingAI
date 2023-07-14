@@ -2,81 +2,111 @@
 
 
 {% block content %}
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+
+        <div class="col-md-3 col-lg-2">
             <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-secondary">
                         <a class="nav-link active" href="#introduction">Introduction</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="list-group-item list-group-item-secondary">
+                        <a class="nav-link" href="#statics">Statics</a>
+                    </li>
+                    <li class="list-group-item list-group-item-secondary">
                         <a class="nav-link" href="#download">Download</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="list-group-item list-group-item-secondary">
                         <a class="nav-link" href="#ml">ML</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="list-group-item list-group-item-secondary">
                         <a class="nav-link" href="#upload">Upload</a>
                     </li>
                 </ul>
             </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div id="introduction" class="card mt-4">
-                <div class="card-header">
-                    <h3>Introduction</h3>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Breeding 4.0 seeks to enhance breeding efficiency and precision by combining
-                        digital and biological technologies to achieve a faster, more efficient and more accurate
-                        breeding process. relies on big data, artificial intelligence, machine learning and genome
-                        editing technologies to collect, integrate and analyse large amounts of crop genomic, phenotypic
-                        and environmental data to predict phenotypic traits in plants and to target breeding on this
-                        basis. </p>
-                    <p class="card-text">We have developed BreedingAI, a user-friendly database that provides breeders
-                        and machine learning experts with easy access to genome-phenotype pair data. It provide two
-                        types of unstructured data: GVCF(genomic VCF) files and VCF files, along with one type of
-                        structured data which is extracted from vcf files by GSCtool, to facilitate research in breeding
-                        machine learning.</p>
+        </div>
+    
+        <div class="col-md-9 ml-sm-auto col-lg-10">
+            <div class="row">
+                <div id="introduction" class="card mt-4">
+                    <div class="card-header">
+                        <h3><a href="{{ url_for('v1.index')}}">Introduction</a></h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Breeding 4.0 seeks to enhance breeding efficiency and precision by combining
+                            digital and biological technologies to achieve a faster, more efficient and more accurate
+                            breeding process. relies on big data, artificial intelligence, machine learning and genome
+                            editing technologies to collect, integrate and analyse large amounts of crop genomic, phenotypic
+                            and environmental data to predict phenotypic traits in plants and to target breeding on this
+                            basis. </p>
+                        <p class="card-text">We have developed BreedingAI, a user-friendly database that provides breeders
+                            and machine learning experts with easy access to genome-phenotype pair data. It provide two
+                            types of unstructured data: GVCF(genomic VCF) files and VCF files, along with one type of
+                            structured data which is extracted from vcf files by GSCtool, to facilitate research in breeding
+                            machine learning.</p>
+                    </div>
                 </div>
             </div>
-
-            <div id="download" class="card mt-4">
+    
+            <div id="statics" class="card mt-4">
                 <div class="card-header">
-                    <h3>Download</h3>
+                    <h3><a href="{{ url_for('v1.stats')}}">Statics</a></h3>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Rice</h4>
-                    <p class="card-text">This is the download section of the Help module.</p>
+                    <p class="card-text">You can find out more details about the data we have collected in this module.</p>
+                    <h4 class="card-title"> Rice</h4>
+                    <p class="card-text">We have collected a substantial dataset comprising 146,550 genome-phenotype
+                        pairs. These data span from 2011 to 2018, with additional data from 2020, and encompass 17
+                        distinct growing regions. the collected phenotypes are associated with 41 traits related to
+                        grain characteristics, plant architecture, yield components and so on. Among these, the heading
+                        date exhibits the largest volume of data, with 13,069 pairs.</p>
                     <h4 class="card-title">Zea</h4>
                     <p class="card-text">This is the download section of the Help module.</p>
                     <h4 class="card-title">Soybean</h4>
                     <p class="card-text">This is the download section of the Help module.</p>
                 </div>
             </div>
-
-            <div id="ml" class="card mt-4">
+    
+            <div id="download" class="card mt-4">
                 <div class="card-header">
-                    ML
+                    <h3><a href="{{ url_for('v1.download', spiece='rice') }}">Download</a></h3>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">ML</h5>
+                    <p>Our data collection efforts have focused on three major crop species, and we have transformed
+                        the collected data into three distinct formats: two unstructured data types, namely GVCF and
+                        VCF, and one structured data type called GSCtool features. These datasets, in conjunction with
+                        the available phenotypic data, hold significant potential to drive advancements in the realm of
+                        breeding machine learning.</p>
+                    <p>By incorporating these comprehensive datasets, researchers can leverage them to develop
+                        innovative tools and models in the field. The integration of genomic information (GVCF and VCF)
+                        and structured features (GSCtool) with phenotypic data provides a robust foundation for
+                        advancing breeding machine learning techniques and contributing to the progress of the field as
+                        a whole.</p>
+                </div>
+            </div>
+    
+            <div id="ml" class="card mt-4">
+                <div class="card-header">
+                    <h3><a href="{{ url_for('v1.features') }}">ML</a></h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><a href="{{ url_for('v1.features') }}">Feature Extraction</a></h4>
+                    <p class="card-text">This is the ML section of the Help module.</p>
+                    <h4 class="card-title"><a href="{{ url_for('v1.prediction') }}">Model Construction</a></h4>
                     <p class="card-text">This is the ML section of the Help module.</p>
                 </div>
             </div>
-
+    
             <div id="upload" class="card mt-4">
                 <div class="card-header">
-                    Upload
+                    <h3><a href="{{ url_for('v1.download', spiece='rice') }}">Upload</a></h3>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Upload</h5>
                     <p class="card-text">This is the upload section of the Help module.</p>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 </div>
 {% endblock %}

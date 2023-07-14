@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="container mt-4">
-    <h1>File Upload</h1>
+    <h2>File Upload</h2>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -40,6 +40,7 @@
 
 <hr>
     <!-- 仅填写信息表单 -->
+    <h2>Information Submitted</h2>
     <form method="POST">
         <div class="form-group">
             <span style="color: red">*</span>  {{infoform.article.label}} {{infoform.article(class="form-control")}}    

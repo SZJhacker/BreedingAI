@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block script %}
+{{ super() }}
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+{% endblock %}
+
+
+{% block content %}
+<br>
+
+<!-- 作物不同年份种植情况 -->
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header"><h4 sty>Rice Planting Statistics</h4></div>
+            <div class="card-body">
+                <div id="rice_sun"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header"><h4>Soybean Planting Statistics</h4></div>
+            <div class="card-body">
+                <div id="soy_sun"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header"><h4>Corn Planting Statistics</h4></div>
+            <div class="card-body">
+                <div id="zea_sun"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript'>
+    var graphs_rice = {{ sunfigs['rice'] | safe}};
+    Plotly.plot('rice_sun', graphs_rice, {});
+    
+    var graphs_soy = {{ sunfigs['rice'] | safe}};
+    Plotly.plot('soy_sun', graphs_soy, {});
+
+    var graphs_zea = {{ sunfigs['zea'] | safe}};
+    Plotly.plot('zea_sun', graphs_zea, {});
+</script>
+<!-- 不同年份种植 end -->
+
+<!-- 水稻在中国不同省份种植情况图 -->
+<div id="china"  style="width:1000px; height:800px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('china'));
+    
+    var option = {{ map_charts['rice'] | safe }};
+
+    myChart.setOption(option);
+</script>
+
+
+{% endblock content %}

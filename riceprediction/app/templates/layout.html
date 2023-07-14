@@ -18,7 +18,7 @@
     {% endblock %}
 
      <!-- log图标 -->
-    <title>BreedingAI</title>
+    <title>BreedingAIDB</title>
     <link rel="icon" href="{{ url_for('v1.static', filename='img/icon.svg') }}" type="image/x-icon">
     {% endblock %}
 </head>
@@ -28,7 +28,7 @@
     <nav class='navbar'>
         <div class="container">
             <a href="{{ url_for('v1.index') }}"><img height='60'
-                    src="{{ url_for('v1.static', filename='img/title2.jpg')}}" alt="BreedingAI"></a>
+                    src="{{ url_for('v1.static', filename='logo.svg') }}" alt="BreedingAIDB"></a>
         </div>
     </nav>
     {% from 'bootstrap4/nav.html' import render_nav_item, render_breadcrumb_item %}
@@ -37,6 +37,7 @@
             <ul class="navbar-nav">
                 {% set nav_items = [
                                     {'url': 'v1.index', 'title': 'Home'}, 
+                                    {'url': 'v1.statistics', 'title':'Statistics'},
                                     { 'title'   : 'Download',
                                       'dropdown': [ {'url': url_for('v1.download', spiece='rice'), 'title': 'Rice'},
                                                     {'url': url_for('v1.download', spiece='Zea'), 'title': 'Zea'},
@@ -50,13 +51,6 @@
                                         ], 
                                     },
                                     {'url':'v1.upload', 'title':'Upload'},
-                                    {'title': 'Stats',
-                                      'dropdown': [
-                                        {'url': url_for('v1.stats', spiece='rice'), 'title': 'Rice'},
-                                        {'url': url_for('v1.stats', spiece='Zea'), 'title': 'Zea'},
-                                        {'url': url_for('v1.stats', spiece='soy'), 'title': 'Soybean'},
-                                        ], 
-                                    },
                                     {'url': 'v1.about', 'title': 'Help'},
                                     ] 
                 %}
@@ -89,7 +83,7 @@
     </nav>
     {% endblock %}
     <!-- Your page content -->
-    <div class="container">
+    <div>
         {% block content %}{% endblock %}
     </div>
 

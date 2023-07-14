@@ -2,38 +2,57 @@
  * @Author: shenzijie
  * @Date: 2022-10-17 00:43:37
  * @LastEditors: shenzijie
- * @LastEditTime: 2023-06-06 00:24:39
+ * @LastEditTime: 2023-07-04 14:57:51
  * @Email: shenzijie2013@163.com
 -->
 {% extends "layout.html" %}
-{% block script %}
-{{ super() }}
-<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
-<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script>
-{% endblock %}
 
 {% block content %}
-<!--地图-->
 
-<!-- 地图 end -->
-
-<!-- 正文内容 -->
-<br>
-<div id="china"  style="width:1000px; height:800px;"></div>
-<script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('china'));
-    
-    var option = {{ map_charts | safe }};
-
-    myChart.setOption(option);
-</script>
-
-<div class="row">
-    <div class="panel-header">
-        <h1>Welcome to BreedingAI</h1>
+<section id="download_intruduction">
+    <div class="container">     
+        <h2 class="mt-4 ">major crops in BreedingAIDB</h2>
+        <div class="border center-block"></div>
+        <div class="row mt-4">
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('v1.download', spiece='rice') }}">
+                    <div class="text-center">
+                        <img src="{{ url_for('v1.static', filename='rice_download_icon.jpg') }}" alt="Rice"
+                            class="rounded-circle" width="150" height="150">
+                        <h4 class="mt-2">Rice</h4>
+                    </div>
+                </a>
+                <p>146, 550 rice genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='rice') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+            </div>
+        
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('v1.download', spiece='zea') }}">
+                    <div class="text-center">
+                        <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="Zea" class="rounded-circle"
+                            width="150" height="150">
+                        <h4 class="mt-2">Zea</h4>
+                    </div>
+                </a>
+                <p>xxxx  zea genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='zea') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+            </div>
+        
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('v1.download', spiece='soybean') }}">
+                    <div class="text-center">
+                        <img src="{{ url_for('v1.static', filename='soy_down_icon.jpg') }}" alt="Soybean"
+                            class="rounded-circle" width="150" height="150">
+                        <h4 class="mt-2">Soybean</h4>
+                    </div>
+                </a>
+                <p>xxx  soybean genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='soybean') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div class="panel-body">
+
+<div class="container">
+    <div class="row mt-4">
         <p>Breeding is a crucial component of human agricultural production, and in order to meet the ever-increasing
             demand for food, it is imperative that we continually enhance the yield and quality of our crops. ML in
             breeding still faces many challenges and limitations, such as data, algorithm selection, and other issues.

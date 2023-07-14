@@ -20,42 +20,45 @@
 {% endblock script %}
 
 {% block content %}
-<br>
-<!-- 下拉框 -->
-<select id="mySelect" aria-label="Select Phenotype">
-    {% for pheno in phenos %}
-    <option value='{{ pheno }}'>{{ pheno }}</option>
-    {% endfor %}
-</select>
-<!-- 下拉框 end -->
 
-<!-- 表型分布图 start -->
-<div id="chart"></div>
-<script type="text/javascript" language="javascript" type="text/javascript" class="init">
-    var graphs = {{ graphJSON | safe }};
-    Plotly.newPlot('chart', graphs, {}); 
-</script>
-<!-- 表型分布图 end -->
-
-<!-- 表型和数据路径下载表格 -->
-<table id='myTable' class="table diaplay" style="width:100%">
-    <thead class="table-dark">
-        <tr>
-            {% for header in phenotable.columns %}
-            <th>{{ header }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for index, row in phenotable.iterrows() %}
-        <tr>
-            {% for cell in row %}
-            <td>{{ cell }}</td>
-            {% endfor %}
-        </tr>
+<div class="container">
+    <br>
+    <!-- 下拉框 -->
+    <select id="mySelect" aria-label="Select Phenotype">
+        {% for pheno in phenos %}
+        <option value='{{ pheno }}'>{{ pheno }}</option>
         {% endfor %}
-    </tbody>
-</table>
+    </select>
+    <!-- 下拉框 end -->
+    
+    <!-- 表型分布图 start -->
+    <div id="chart"></div>
+    <script type="text/javascript" language="javascript" type="text/javascript" class="init">
+        var graphs = {{ graphJSON | safe }};
+        Plotly.newPlot('chart', graphs, {}); 
+    </script>
+    <!-- 表型分布图 end -->
+    
+    <!-- 表型和数据路径下载表格 -->
+    <table id='myTable' class="table diaplay" style="width:100%">
+        <thead class="table-dark">
+            <tr>
+                {% for header in phenotable.columns %}
+                <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in phenotable.iterrows() %}
+            <tr>
+                {% for cell in row %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
   
 <!-- 表型和数据路径下载表格 end -->
 
@@ -152,9 +155,6 @@
             });
         });    
     });   
-</script>
-
-<script>
 </script>
 
 {% endblock content %}
