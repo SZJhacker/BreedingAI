@@ -5,53 +5,43 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-3 col-lg-2">
-            <div class="sidebar-sticky">
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-secondary">
-                        <a class="nav-link active" href="#introduction">Introduction</a>
-                    </li>
-                    <li class="list-group-item list-group-item-secondary">
-                        <a class="nav-link" href="#statics">Statics</a>
-                    </li>
-                    <li class="list-group-item list-group-item-secondary">
-                        <a class="nav-link" href="#download">Download</a>
-                    </li>
-                    <li class="list-group-item list-group-item-secondary">
-                        <a class="nav-link" href="#ml">ML</a>
-                    </li>
-                    <li class="list-group-item list-group-item-secondary">
-                        <a class="nav-link" href="#upload">Upload</a>
-                    </li>
-                </ul>
+        <div class="col-md-3">
+            <br>
+            <div class="sidebar">
+                <nav class="nav flex-column nav-pills">
+                    <a class="nav-link active" href="#introduction">Introduction</a>
+                    <a class="nav-link" href="#statics">Statics</a>
+                    <a class="nav-link" href="#download">Download</a>
+                    <a class="nav-link" href="#ml">ML</a>
+                    <a class="nav-link" href="#upload">Upload</a>
+                </nav>
             </div>
         </div>
+        
     
-        <div class="col-md-9 ml-sm-auto col-lg-10">
-            <div class="row">
-                <div id="introduction" class="card mt-4">
-                    <div class="card-header">
-                        <h3><a href="{{ url_for('v1.index')}}">Introduction</a></h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Breeding 4.0 seeks to enhance breeding efficiency and precision by combining
-                            digital and biological technologies to achieve a faster, more efficient and more accurate
-                            breeding process. relies on big data, artificial intelligence, machine learning and genome
-                            editing technologies to collect, integrate and analyse large amounts of crop genomic, phenotypic
-                            and environmental data to predict phenotypic traits in plants and to target breeding on this
-                            basis. </p>
-                        <p class="card-text">We have developed BreedingAI, a user-friendly database that provides breeders
-                            and machine learning experts with easy access to genome-phenotype pair data. It provide two
-                            types of unstructured data: GVCF(genomic VCF) files and VCF files, along with one type of
-                            structured data which is extracted from vcf files by GSCtool, to facilitate research in breeding
-                            machine learning.</p>
-                    </div>
+        <div class="col-md-9 ml-sm-auto">
+            <div id="introduction" class="card mt-4">
+                <div class="card-header">
+                    <h3><a href="{{ url_for('v1.index')}}">Introduction</a></h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Breeding 4.0 seeks to enhance breeding efficiency and precision by combining
+                        digital and biological technologies to achieve a faster, more efficient and more accurate
+                        breeding process. relies on big data, artificial intelligence, machine learning and genome
+                        editing technologies to collect, integrate and analyse large amounts of crop genomic, phenotypic
+                        and environmental data to predict phenotypic traits in plants and to target breeding on this
+                        basis. </p>
+                    <p class="card-text">We have developed BreedingAI, a user-friendly database that provides breeders
+                        and machine learning experts with easy access to genome-phenotype pair data. It provide two
+                        types of unstructured data: GVCF(genomic VCF) files and VCF files, along with one type of
+                        structured data which is extracted from vcf files by GSCtool, to facilitate research in breeding
+                        machine learning.</p>
                 </div>
             </div>
     
             <div id="statics" class="card mt-4">
                 <div class="card-header">
-                    <h3><a href="{{ url_for('v1.stats')}}">Statics</a></h3>
+                    <h3><a href="{{ url_for('v1.statistics')}}">Statics</a></h3>
                 </div>
                 <div class="card-body">
                     <p class="card-text">You can find out more details about the data we have collected in this module.</p>

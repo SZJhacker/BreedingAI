@@ -7,7 +7,7 @@
 '''
 
 from flask import Flask
-from flask_bootstrap import Bootstrap4
+from flask_bootstrap import Bootstrap5
 from app.libs.email import mail
 
 def register_blueprints(app):
@@ -23,7 +23,7 @@ def register_plugin(app):
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
-    bootstrap = Bootstrap4()
+    bootstrap = Bootstrap5()
     app.config.from_pyfile('setting.py')
     app.config.from_pyfile('secure.py')
 

@@ -5,7 +5,7 @@
 Author: shenzijie
 Date: 2022-10-15 22:11:39
 LastEditors: shenzijie
-LastEditTime: 2023-06-10 23:49:41
+LastEditTime: 2023-07-15 16:16:36
 Email: shenzijie2013@163.com
 '''
 
@@ -18,7 +18,8 @@ class Info:
     '''read a file with csv form, return figure json'''  
     def __init__(self,csvfile):
         self.data = pd.read_csv(csvfile, header=0)
-        self.pheno_values = self.data.iloc[:,4:41].copy()
+        self.com_cols = ['Sample_ID', 'Bioproject', 'Name_cn', 'Name', 'Years', 'Region', 'Region_cn']
+        self.pheno_values = self.data.drop(columns=self.com_cols).copy()
         self.pheno_stats = self.pheno_values.count()
         self.labels = self.pheno_stats.index
         self.counts = self.pheno_stats.values
