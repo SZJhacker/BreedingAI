@@ -3,7 +3,7 @@
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, FileField
+from wtforms import StringField, FileField, SubmitField
 from wtforms.validators import DataRequired
 
 # 定义表单类
@@ -14,3 +14,4 @@ class UploadForm(FlaskForm):
     planting_region = StringField('Planting Region')
     planting_year = StringField('Planting Year')
     file = FileField('File', validators=[DataRequired()])
+    submit = SubmitField('Submit')

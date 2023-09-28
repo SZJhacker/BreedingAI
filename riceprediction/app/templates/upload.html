@@ -1,12 +1,7 @@
 {% extends 'layout.html' %}
 
-{% block style %}
-    {{ super() }}
-{% endblock style %}
 {% block content %}
-
 <div class="container mt-4">
-    <h2>File Upload</h2>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -17,44 +12,108 @@
     <!-- 文件上传表单 -->
     <form method="POST" enctype="multipart/form-data" >
         {{ fileform.hidden_tag() }}
-        <div class="form-group">
-            <span style="color: red">*</span> {{ fileform.phenotype.label }}  {{ fileform.phenotype(class="form-control") }}
+        <h3 class="text-info mb-3"><i class="fas fa-file-upload"></i> File Upload</h3>
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Species: 
+            </div>
+            <div class="col-md-7">
+                {{ fileform.species(class="form-select") }}
+            </div>
         </div>
-        <div class="form-group">
-            <span style="color: red">*</span> {{ fileform.specie.label }}  {{ fileform.specie(class="form-control") }}
+        
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Phenotype:
+            </div>
+            <div class="col-md-7">
+                {{ fileform.phenotype(class="form-control") }}
+            </div>
         </div>
-        <div class="form-group">
-            <span style="color: red">*</span> {{ fileform.reference_genome.label }}  {{ fileform.reference_genome(class="form-control") }}
+        
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Reference Genome: 
+            </div>
+            <div class="col-md-7">
+                {{ fileform.reference_genome(class="form-control") }}
+            </div>
         </div>
-        <div class="form-group">
-            {{ fileform.planting_region.label }} {{ fileform.planting_region(class="form-control") }}
+        
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                Planting Region:
+            </div>
+            <div class="col-md-7">
+                {{ fileform.planting_region(class="form-control") }}
+            </div>
         </div>
-        <div class="form-group">
-            {{ fileform.planting_year.label }} {{ fileform.planting_year(class="form-control") }}
+        
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                Planting Year:
+            </div>
+            <div class="col-md-7">
+                {{ fileform.planting_year(class="form-control") }}
+            </div>
         </div>
-        <div class="form-group">
-            <span style="color: red">*</span> {{ fileform.file.label }}  {{ fileform.file(class="custom-file form-control", type="file") }}
+        
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Upload file:
+            </div>
+            <div class="col-md-7">
+                {{ fileform.file(class="custom-file form-control", type="file") }}
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
+        <div class="form-group mb-3 col-md-10 row text-md-end">
+            <div class="col-md">
+                <!-- 表单字段的内容 -->
+                <button type="submit" class="btn btn-primary btn-md ml-auto">Upload</button>
+            </div>
+        </div>
+        
     </form>
+    <hr>
+</div>
 
-<hr>
+<div class="container mt-4">
     <!-- 仅填写信息表单 -->
-    <h2>Information Submitted</h2>
+    <h3 class="text-info mb-3"><i class="fas fa-info-circle"></i> Information Submitted</h3>
     <form method="POST">
-        <div class="form-group">
-            <span style="color: red">*</span>  {{infoform.article.label}} {{infoform.article(class="form-control")}}    
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Article:
+            </div>
+            <div class="col-md-7">
+                {{ infoform.article(class="form-control") }}
+            </div>
         </div>
         
-        <div class="form-group">
-            <span style="color: red">*</span>  {{infoform.bioproject.label}} {{infoform.bioproject(class="form-control")}}    
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Bioproject:
+            </div>
+            <div class="col-md-7">
+                {{ infoform.bioproject(class="form-control") }}
+            </div>
         </div>
         
-        <div class="form-group">
-            <span style="color: red">*</span>  {{infoform.specie.label}} {{infoform.specie(class="form-control")}}    
+        <div class="form-group mb-3 row">
+            <div class="col-md-3 text-md-end col-form-label">
+                <span style="color: red">*</span> Species:
+            </div>
+            <div class="col-md-7">
+                {{ infoform.specie(class="form-control") }}
+            </div>
         </div>
-         
-        <button type="submit" class="btn btn-primary">Submit</button>
+        
+        <div class="form-group mb-3 row">
+            <div class="col-md-10 offset-md-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        
       </form>
       
 

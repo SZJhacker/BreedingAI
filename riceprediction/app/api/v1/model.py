@@ -6,16 +6,22 @@
 @时间        :2021/01/13 11:05:20
 '''
 
-import optuna, json, plotly
+import os, optuna, json, plotly, joblib, time
 import numpy as np
 import pandas as pd
-import plotly.express as px
+# import plotly.express as px
 from lightgbm import LGBMRegressor
-from flask import render_template, request
+from sklearn.metrics import mean_squared_error
+from flask import render_template, request, after_this_request, send_file, current_app
 from app.libs.redprint import Redprint
 from app.validations.lgbPara import SearchSpace
 
-api = Redprint('prediction')
+api = Redprint('model')
+
+def generate_name():
+    timestamp = int(time.time())
+    pkl = os.path.join(current_app.instance_path, 'tmp', f'lgb.{timestamp}.pkl')
+    return pkl
 
 def figjson(fig):
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -38,15 +44,18 @@ def get_k_fold_data(k, i, X, y):
 
 
 @api.route('/', methods=['GET', 'POST'])
-def prediction():
+def model():
     search_space = SearchSpace()
     if request.method == "POST" and search_space.validate_on_submit():
-        features = pd.read_csv(search_space.features.data, header=0)
-        X, y = features.iloc[:, :-1], features.iloc[:, -1]
+# 读取 CSV 文件，指定 'sample' 列为索引列
+        features = pd.read_csv(search_space.features.data, index_col='sample')
+
+        # 获取特征列和标签列
+        X = features.drop(columns=['labels'])  # 剩余的列为特征列
+        y = features['labels']  # 'label' 列为标签列
         x_train, y_train, x_valid, y_valid = get_k_fold_data(5, 1, X.values, y.values)
-        optuna.logging.set_verbosity(optuna.logging.WARNING) # 压缩报告信息
-        study_tuner = optuna.create_study(direction='maxmize', pruner=optuna.pruners.MedianPruner())
-        kwargs=search_space
+        kwargs = search_space
+
         def objective(trial):
             param = {
                 'metric': kwargs.metric.data.strip(), 
@@ -64,21 +73,45 @@ def prediction():
                 'lambda_l2': trial.suggest_loguniform('lambda_l2', kwargs.lambda_l2_min.data, kwargs.lambda_l2_max.data),
             }
             lgb=LGBMRegressor(**param)
-            pruning_callback = optuna.integration.LightGBMPruningCallback(trial, "l2")
+            pruning_callback = optuna.integration.LightGBMPruningCallback(trial, 'l2')
             lgb.fit(x_train, y_train, eval_set=[(x_valid, y_valid)],callbacks=[pruning_callback])
-            return lgb.score(x_valid, y_valid)
+            preds = lgb.predict(x_valid)
+            accuracy = np.sqrt(mean_squared_error(y_valid, preds))
+            return accuracy
+        
+
+        optuna.logging.set_verbosity(optuna.logging.WARNING) # 压缩报告信息
+        study_tuner = optuna.create_study(direction='minimize', pruner=optuna.pruners.MedianPruner())
         study_tuner.optimize(objective, n_trials=search_space.trails.data)
 
-        fig_history = figjson(optuna.visualization.plot_optimization_history(study_tuner))
-        fig_para = figjson(optuna.visualization.plot_param_importances(study_tuner))
+        # 绘制optuna训练历史
+        # fig_history = figjson(optuna.visualization.plot_optimization_history(study_tuner))
+        # fig_para = figjson(optuna.visualization.plot_param_importances(study_tuner))
 
         lgb = LGBMRegressor(**study_tuner.best_params)
         lgb.fit(x_train, y_train, eval_set=[(x_valid, y_valid)])
-        feature_importance = pd.DataFrame(lgb.feature_importances_,
-                                            index=X.columns.values,
-                                            columns=['feature_importance']).sort_values('feature_importance').tail(10)
-        fig_features = figjson(px.bar(feature_importance, orientation='h', height=400))
+
+        ## 绘制最有模型中的重要特征
+        # feature_importance = pd.DataFrame(lgb.feature_importances_,
+        #                                     index=X.columns.values,
+        #                                     columns=['feature_importance']).sort_values('feature_importance').tail(10)
+        # fig_features = figjson(px.bar(feature_importance, orientation='h', height=400))
         print('分析完成')
-        return render_template('predict_results.html', graphJSON_history=fig_history, graphJSON_paras=fig_para, graphJSON_features=fig_features)
-    return render_template('prediction.html', space=search_space)
+        # return render_template('predict_results.html', graphJSON_history=fig_history, graphJSON_paras=fig_para, graphJSON_features=fig_features)
+
+        
+        # 最优模型返回
+        filename = generate_name()
+        joblib.dump(lgb, filename)
+        @after_this_request
+        def remove_file(response):
+            os.remove(filename)
+            return response
+        return send_file(
+            filename,
+            mimetype='application/octet-stream',
+            as_attachment=True
+        )
+
+    return render_template('model.html', space=search_space)
 

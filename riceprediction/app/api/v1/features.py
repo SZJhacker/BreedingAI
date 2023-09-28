@@ -19,13 +19,13 @@ def features():
     form = UploadFile()
     if form.validate_on_submit():
         vcffile = form.file.data
-        spiece = form.spieces.data
-        filename = generate_name(spiece)
+        species = form.species.data
+        filename = generate_name(species)
         gff_pre = os.path.join(current_app.instance_path, 'gff')
         gff_path = {'rice': os.path.join(gff_pre,"IRGSP-1.0_representative_2023-03-15.tar.gz"),
                     'zea' : os.path.join(gff_pre,'Zea_mays.Zm-B73-REFERENCE-NAM-5.0.56.gff3.gz'),
                     'soy' : os.path.join(gff_pre,'Glycine_max.Glycine_max_v2.1.56.gff3.gz')}
-        features = GenomeFeature(gff_path[spiece], vcffile, filename)
+        features = GenomeFeature(gff_path[species], vcffile, filename)
         features.parse()
         @after_this_request
         def remove_file(response):

@@ -10,8 +10,8 @@ from flask import render_template
 from app.libs.redprint import Redprint
 
 
-api = Redprint('prediction_cn')
+api = Redprint('model_cn')
 
-@api.route('/', endpoint='prediction_cn')
-def prediction():
-    return render_template('prediction_cn.html')
+@api.route('/', endpoint='model_cn')
+def model_cn():
+    return render_template('model_cn.html')

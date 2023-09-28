@@ -3,7 +3,7 @@
 
 from flask import render_template, flash, redirect, url_for, request
 from app.libs.redprint import Redprint
-from app.validations.uploadfile import UploadForm
+from app.validations.upload import UploadForm
 from app.validations.info import InfoForm
 from app.models.uploadata import UploadedData
 from app.models.info import Info
@@ -20,7 +20,7 @@ def upload():
         if fileform.validate_on_submit():
             # 获取表单数据
             phenotype = fileform.phenotype.data
-            specie = fileform.specie.data
+            specie = fileform.species.data
             reference_genome = fileform.reference_genome.data
             planting_region = fileform.planting_region.data
             planting_year = fileform.planting_year.data

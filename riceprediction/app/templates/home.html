@@ -2,7 +2,7 @@
  * @Author: shenzijie
  * @Date: 2022-10-17 00:43:37
  * @LastEditors: shenzijie
- * @LastEditTime: 2023-07-04 14:57:51
+ * @LastEditTime: 2023-08-28 01:35:44
  * @Email: shenzijie2013@163.com
 -->
 {% extends "layout.html" %}
@@ -11,7 +11,7 @@
 
 <section id="download_intruduction">
     <div class="container">     
-        <h2 class="mt-4 ">major crops in BreedingAIDB</h2>
+        <h1 class="mt-4 ">Major crops in BreedingAIDB</h1>
         <div class="border center-block"></div>
         <div class="row mt-4">
             <div class="col-md-4 mb-4">
@@ -22,18 +22,7 @@
                         <h4 class="mt-2">Rice</h4>
                     </div>
                 </a>
-                <p>146, 550 rice genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='rice') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
-            </div>
-        
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', spiece='zea') }}">
-                    <div class="text-center">
-                        <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="Zea" class="rounded-circle"
-                            width="150" height="150">
-                        <h4 class="mt-2">Zea</h4>
-                    </div>
-                </a>
-                <p>xxxx  zea genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='zea') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+                <p class="lead">129, 449 rice genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='rice') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
             </div>
         
             <div class="col-md-4 mb-4">
@@ -44,7 +33,18 @@
                         <h4 class="mt-2">Soybean</h4>
                     </div>
                 </a>
-                <p>xxx  soybean genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='soybean') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+                <p class="lead">16, 284 soybean genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='soybean') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+            </div>
+        
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('v1.download', spiece='zea') }}">
+                    <div class="text-center">
+                        <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="Zea" class="rounded-circle"
+                            width="150" height="150">
+                        <h4 class="mt-2">Zea</h4>
+                    </div>
+                </a>
+                <p class="lead">284, 395 zea genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='zea') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
             </div>
         </div>
     </div>
@@ -53,11 +53,11 @@
 
 <div class="container">
     <div class="row mt-4">
-        <p>Breeding is a crucial component of human agricultural production, and in order to meet the ever-increasing
+        <p class="lead">Breeding is a crucial component of human agricultural production, and in order to meet the ever-increasing
             demand for food, it is imperative that we continually enhance the yield and quality of our crops. ML in
             breeding still faces many challenges and limitations, such as data, algorithm selection, and other issues.
         </p>
-        <p>We gathered genome-phenotype pair data for three crops that are currently accessible to the public. The
+        <p class="lead">We gathered genome-phenotype pair data for three crops that are currently accessible to the public. The
             processing of genome resequencing data followed the best practice guidelines established by the Genome
             Sequencing and Analysis (GSA) team at the Broad Institute's GATK development team.</p>
     </div>

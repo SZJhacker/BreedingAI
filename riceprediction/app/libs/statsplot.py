@@ -17,7 +17,7 @@ class DataVisualization:
         self.data['Counts'] = self.data.drop(columns=self.com_cols).count(axis=1)
         self.labels = self.pheno_stats.index
         self.counts = self.pheno_stats.values
-        self.ftp_temp = 'https://{spiece}/{datatype}/{sampleid}'
+        self.ftp_temp = 'https://ibi.zju.edu.cn/{species}/{datatype}/{sampleid}.gz'
 
         self.sunfig = go.Figure()
         self.map_chart = Map(init_opts=opts.InitOpts(theme='light'))
@@ -62,8 +62,7 @@ class DataVisualization:
             values=sun_trees['counts'],
             branchvalues='total',
             hovertemplate='<b>%{label} </b> <br> Sales: %{value}<br>',
-            textinfo='label+value',
-            marker=dict(colors=px.colors.qualitative.Pastel)
+            textinfo='label+value'
         ))
 
         self.sunfig.update_layout(margin=dict(t=10, l=10, r=10, b=10))
@@ -71,7 +70,9 @@ class DataVisualization:
     
             
     def plot_histogram(self, pheno='Whiteness_Degree_of_Complete_Grain(%)', height=600):
-        fig = px.histogram(self.data[[pheno]], x=pheno, height=height)
+        fig = px.histogram(self.data[[pheno]], x=pheno, height=height,template="simple_white")
+        fig.update_xaxes(tickfont=dict(size=16), title_font=dict(size=18))
+        fig.update_yaxes(tickfont=dict(size=16), title_font=dict(size=18))
         return self.__figjson(fig)
 
     def plot_distr(self, height=800):
@@ -85,10 +86,10 @@ class DataVisualization:
         fig.update_layout(height=height)
         return self.__figjson(fig)
         
-    def construct_table(self, pheno_name, spiece='rice', datatype='SNPs'):
+    def construct_table(self, pheno_name, species='rice', datatype='GVCF'):
         headers = ['Sample_ID', 'Name', pheno_name, 'Years', 'Region']
         pheno = self.data[headers].dropna(subset=[pheno_name])
-        pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(spiece=spiece, datatype=datatype, sampleid=x))
+        pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(species=species, datatype=datatype, sampleid=x))
         return pheno
         
 

@@ -1,0 +1,234 @@
+{% extends "layout.html" %}
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock styles %}
+
+{% block content %}
+<header class="bg-light bg-gradient text-dark text-center py-5">
+    <div class="container">
+        <h1>Search space for lightGBM</h1>
+        <p class="lead"> <a href="https://lightgbm.readthedocs.io/en/stable/">LightGBM</a> is a gradient-boosting
+            framework for ML originally developed by Microsoft. <a
+                href="https://optuna.readthedocs.io/en/stable/">Optuna</a> is an automatic
+            hyperparameter optimization framework software, which help you find the best hyperparameters for your model.
+            In this function module, Optuna will seek out the optimal lightGBM hyperparameters in the following parameter
+            space, and return the .</p>
+    </div>
+</header>
+
+
+{% from 'bootstrap5/form.html' import render_field %}
+{% from 'bootstrap5/form.html' import render_form_row %}
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+
+        <div class="col-md-10 offset-md-1">
+    
+            <form method="POST" enctype="multipart/form-data">
+                {{ space.hidden_tag() }}
+        
+                <!-- Group 1: Boosting Type and Metrics -->
+                <fieldset>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-cogs mt-1"></i> Boosting Type and Metrics</legend>
+                    <div class="form-group row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder">Boosting type:</div>
+                        <div class="col-md-9 mt-2">
+                            {{ render_field(space.boosting_type, form_type='inline') }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder">Metrics:</div>
+                        <div class="col-md-9 mt-2">
+                            {{ render_field(space.metric, form_type='inline') }}
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+                <!-- Group 2: Estimators and Learning Rates -->
+                <fieldset>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-chart-line"></i>  Estimators and Learning Rates</legend>
+                    <div class="row">
+                        <div for="{{ space.n_estimators_min.id }}"
+                            class="col-md-3 col-form-label text-md-end fw-bolder">N_estimators:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    {{ render_field(space.n_estimators_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3 text-center">
+                                    {{ render_field(space.n_estimators_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Learning Rate:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.learning_rate_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.learning_rate_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </fieldset>
+                <br>
+                <!-- Group 3: Tree Parameters -->
+                <fieldset>
+                    <!-- Repeat the same structure for other parameters -->
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-tree"></i>  Tree Parameters</legend>
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Max depth:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.max_depth_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.max_depth_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Leaves:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.leaves_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.leaves_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Min child:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.min_child_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.min_child_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </fieldset>
+
+                <br>
+                <!-- Group 4: Fractional Parameters -->
+                <fieldset>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-random"></i>  Fractional Parameters</legend>
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Features fraction:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.features_fraction_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.features_fraction_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Bagging fraction:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.bagging_fraction_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.bagging_fraction_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </fieldset>
+        
+                <!-- Group 5: Regularization Parameters -->
+                <br>
+                <fieldset>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-balance-scale"></i>  Regularization Parameters</legend>
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Lambda L1:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.lambda_l1_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.lambda_l1_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Lambda L2:</div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {{ render_field(space.lambda_l2_min, form_type='inline') }}
+                                </div>
+                                <div class="col-md-1 text-center">—</div>
+                                <div class="col-md-3">
+                                    {{ render_field(space.lambda_l2_max, form_type='inline') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </fieldset>
+        
+                <!-- Remaining Fields -->
+                <br>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label text-md-end fw-bolder">Trails:</label>
+                    <div class="col-md-6">
+                        {{ render_field(space.trails, form_type='inline') }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label text-md-end fw-bolder">Seed:</label>
+                    <div class="col-md-6">
+                        {{ render_field(space.seed, form_type='inline') }}
+                    </div>
+                </div>
+                <div class="form-group row text-center">
+                    <label class="col-md-3 col-form-label text-md-end fw-bolder">Features:</label>
+                    <div class="col-md-6">
+                        {{ render_field(space.features, form_type='inline') }}
+                        <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_example.csv') }}" download>Download Example File</a></p>
+                        {{ render_field(space.submit, button_style='primary') }}
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

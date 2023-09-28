@@ -1,16 +1,5 @@
 {% extends 'layout.html' %}
 
-{% block style %}
-{{ super() }}
-.custom-container {
-width: 90%; /* 设置容器的宽度为 container-fluid 的85% */
-margin-left: auto;
-margin-right: auto;
-/* 其他样式属性 */
-}
-
-{% endblock style %}
-
 {% block script %}
 {{ super() }}
 <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
@@ -74,7 +63,7 @@ margin-right: auto;
 
 
     <div class="row">
-        <div class="container col-lg-9">
+        <div class="container col-lg-12">
             <br>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -92,9 +81,9 @@ margin-right: auto;
             <!-- Tab panes -->
             <div class="tab-content">
                 <br>
-                <div id="rice" style="width:1000px;height:700px;" class="container tab-pane active"> </div>
-                <div id="zea" style="width:1000px;height:700px;" class="container tab-pane fade"></div>
-                <div id="soy" style="width:1000px;height:700px;" class="container tab-pane fade"></div>
+                <div id="rice" style="width:1200px;height:860px;" class="container tab-pane active"> </div>
+                <div id="zea" style="width:1200px;height:860px;" class="container tab-pane fade"></div>
+                <div id="soy" style="width:1200px;height:860px;" class="container tab-pane fade"></div>
             </div>
             <script type="text/javascript">
                 var ricemapChart = echarts.init(document.getElementById('rice'));
@@ -107,13 +96,11 @@ margin-right: auto;
                 
                 var soymapChart = echarts.init(document.getElementById('soy'));
                 var soyOption = {{ map_charts['soy'] | safe }};    
-                soymapChart.setOption(soyOption); 
-                               
+                soymapChart.setOption(soyOption);                                
             </script>
 
         </div>
-        <!-- 水稻在中国不同省份种植情况图 -->
-        <div class="col-lg-3"></div>
+
     </div>
 
 </div>

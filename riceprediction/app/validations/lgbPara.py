@@ -16,8 +16,8 @@ class SearchSpace(FlaskForm):
         default='gbdt')
     metric = RadioField('Metrics',
                         choices=[('mse', 'mse'),
-                                 ('mean_absolute_error', 'mae'),
-                                 ('root_mse', 'rmse'),
+                                 ('mae', 'mae'),
+                                 ('rmse', 'rmse'),
                                  ('rmsle', 'rmsle'), ('mape', 'mape'),
                                  ('smape', 'smape'), ('rmspe', 'rmspe')],
                         default='mse')

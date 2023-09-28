@@ -8,7 +8,7 @@
         <div class="col-md-3">
             <br>
             <div class="sidebar">
-                <nav class="nav flex-column nav-pills">
+                <nav class="nav flex-column nav-pills fs-5">
                     <a class="nav-link active" href="#introduction">Introduction</a>
                     <a class="nav-link" href="#statics">Statics</a>
                     <a class="nav-link" href="#download">Download</a>
@@ -17,14 +17,14 @@
                 </nav>
             </div>
         </div>
-        
-    
+
+
         <div class="col-md-9 ml-sm-auto">
             <div id="introduction" class="card mt-4">
                 <div class="card-header">
                     <h3><a href="{{ url_for('v1.index')}}">Introduction</a></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body fs-5 lh-lg">
                     <p class="card-text">Breeding 4.0 seeks to enhance breeding efficiency and precision by combining
                         digital and biological technologies to achieve a faster, more efficient and more accurate
                         breeding process. relies on big data, artificial intelligence, machine learning and genome
@@ -38,31 +38,39 @@
                         machine learning.</p>
                 </div>
             </div>
-    
-            <div id="statics" class="card mt-4">
+
+            <div id="statistics" class="card mt-4">
                 <div class="card-header">
-                    <h3><a href="{{ url_for('v1.statistics')}}">Statics</a></h3>
+                    <h3><a href="{{ url_for('v1.statistics')}}">Statistics</a></h3>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">You can find out more details about the data we have collected in this module.</p>
+                <div class="card-body fs-5 lh-lg">
+                    <p class="card-text">You can find out more details about the data we have collected in this module.
+                    </p>
                     <h4 class="card-title"> Rice</h4>
-                    <p class="card-text">We have collected a substantial dataset comprising 146,550 genome-phenotype
-                        pairs. These data span from 2011 to 2018, with additional data from 2020, and encompass 17
-                        distinct growing regions. the collected phenotypes are associated with 41 traits related to
-                        grain characteristics, plant architecture, yield components and so on. Among these, the heading
-                        date exhibits the largest volume of data, with 13,069 pairs.</p>
-                    <h4 class="card-title">Zea</h4>
-                    <p class="card-text">This is the download section of the Help module.</p>
+                    <p class="card-text">Rice, a paramount staple crop, is represented by a collection of
+                        129,449 phenotypic records. This comprehensive assembly spans 12 distinct regions, spanning the
+                        years from 2011 through 2018 and extending to 2020. Encompassing a spectrum of 41 distinct
+                        traits, these phenotypic data illuminate facets ranging from growth patterns to yield
+                        attributes, thereby affording a holistic grasp of rice's developmental and productive
+                        expressions.</p>
                     <h4 class="card-title">Soybean</h4>
-                    <p class="card-text">This is the download section of the Help module.</p>
+                    <p class="card-text">Soybean, renowned for its significance as both a proteinaceous and oleaginous
+                        crop, contributes 284,395 phenotypic entries. This dataset spans cultivation regions across five
+                        distinct locales, covering a span of years encompassing 2013 through 2019. Across these years,
+                        114 diverse phenotypic features are documented, forming a mosaic that captures the crop's
+                        multifaceted attributes.</p>
+                    <h4 class="card-title">Zea</h4>
+                    <p class="card-text">Maize, holding eminence as a vital food and fodder source, lends its essence
+                        with 16,284 phenotypic profiles. These profiles encapsulate three geographical domains and span
+                        the years 2016 and 2017, illuminating 18 distinct phenotypic attributes.</p>
                 </div>
             </div>
-    
+
             <div id="download" class="card mt-4">
                 <div class="card-header">
-                    <h3><a href="{{ url_for('v1.download', spiece='rice') }}">Download</a></h3>
+                    <h3><a href="{{ url_for('v1.download', species='rice') }}">Download</a></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body fs-5 lh-lg">
                     <p>Our data collection efforts have focused on three major crop species, and we have transformed
                         the collected data into three distinct formats: two unstructured data types, namely GVCF and
                         VCF, and one structured data type called GSCtool features. These datasets, in conjunction with
@@ -75,24 +83,39 @@
                         a whole.</p>
                 </div>
             </div>
-    
+
             <div id="ml" class="card mt-4">
                 <div class="card-header">
                     <h3><a href="{{ url_for('v1.features') }}">ML</a></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body fs-5 lh-lg">
                     <h4 class="card-title"><a href="{{ url_for('v1.features') }}">Feature Extraction</a></h4>
-                    <p class="card-text">This is the ML section of the Help module.</p>
-                    <h4 class="card-title"><a href="{{ url_for('v1.prediction') }}">Model Construction</a></h4>
-                    <p class="card-text">This is the ML section of the Help module.</p>
+                    <p class="card-text">The engine of the feature extraction module is GSCtool, which is designed as a
+                        flexible tool for extracting features from different types of SNPs variation detection result
+                        files. Currently, three major crops are supported: rice, soybean and maize, based on IRGSP 1.0,
+                        Williams 82 and B73 reference genomes, respectively. gsctool is easy to operate, and users can
+                        upload the corresponding variant detection result files for feature extraction. For other
+                        reference genomes, users can use gsctool with the corresponding gff3 files for customised
+                        feature extraction. This module enables users to extract key information from genomic variation
+                        data, laying a solid foundation for subsequent machine learning model construction.</p>
+                    <h4 class="card-title"><a href="{{ url_for('v1.model') }}">Model Construction</a></h4>
+                    <p class="card-text">The machine learning model building module combines the power of optuna and
+                        lightgbm to provide users with a highly customisable model optimisation framework. Within a
+                        predefined hyperparameter space, users can adjust the hyperparameters according to their
+                        specific needs and upload data files obtained from previous feature extraction for model
+                        construction. optuna will search the hyperparameter space to find the best model configuration.
+                        lightgbm, a fast and efficient gradient boosting framework, is able to efficiently process
+                        large-scale data and generate accurate predictive models. The labels in the data files uploaded
+                        by the user will be considered as prediction targets, thus enabling the model construction and
+                        prediction processes to be closely linked.</p>
                 </div>
             </div>
-    
+
             <div id="upload" class="card mt-4">
                 <div class="card-header">
-                    <h3><a href="{{ url_for('v1.download', spiece='rice') }}">Upload</a></h3>
+                    <h3><a href="{{ url_for('v1.download', species='rice') }}">Upload</a></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body fs-5 lh-lg">
                     <p class="card-text">This is the upload section of the Help module.</p>
                 </div>
             </div>

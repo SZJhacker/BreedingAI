@@ -1,11 +1,18 @@
 {% extends 'layout.html' %}
 
-{% block style %}
+{% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" type="text/css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css"> -->
+<style>
+    .form-inline .form-control {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+      }
+</style>
+  
 {% endblock %}
-
 {% block script %}
 {{ super() }}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -20,45 +27,102 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 {% endblock script %}
 
+
+
 {% block content %}
+{% macro render_table(idname,columns, rows) %}
+<table id="{{ idname }}" class="myTable table diaplay"  style="width:100%">
+    <thead class="table-dark">
+        <tr>
+            {% for header in columns %}
+            <th>{{ header }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row_index, row_data in rows %}
+        <tr>
+            {% for cell in row_data %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
 
 <div class="container">
     <br>
     <!-- 下拉框 -->
-    <select id="mySelect" aria-label="Select Phenotype">
-        {% for pheno in phenos %}
-        <option value='{{ pheno }}'>{{ pheno }}</option>
-        {% endfor %}
-    </select>
+    <div class="row">
+        <h3 class="text-info"><i class="fas fa-list"></i> Please select the pheno</h3>
+        <div class="col-md-5">
+            <select id="mySelect" class="form-select" aria-label="Select Phenotype">
+                {% for pheno in phenos %}
+                <option value='{{ pheno }}'>{{ pheno }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
     <!-- 下拉框 end -->
+    <br>
     
     <!-- 表型分布图 start -->
-    <div id="chart"></div>
+    <div id="chart" class='border border-light'></div>
+    <hr>
     <script type="text/javascript" language="javascript" type="text/javascript" class="init">
         var graphs = {{ graphJSON | safe }};
         Plotly.newPlot('chart', graphs, {}); 
     </script>
     <!-- 表型分布图 end -->
-    
+    <br>
     <!-- 表型和数据路径下载表格 -->
-    <table id='myTable' class="table diaplay" style="width:100%">
-        <thead class="table-dark">
-            <tr>
-                {% for header in phenotable.columns %}
-                <th>{{ header }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for index, row in phenotable.iterrows() %}
-            <tr>
-                {% for cell in row %}
-                <td>{{ cell }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h3 class="text-info"><i class="fas fa-download"></i> Download</h3>
+    <hr>
+    <div class="accordion" id="tableAccordion">
+        <!-- 第一个手风琴面板 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="tablePanel1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tableCollapse1" aria-expanded="true" aria-controls="tableCollapse1">
+                    <h4 class="text-success">Unstructed data - <small>GVCF</small></h4>
+                </button>
+            </h2>
+            <div id="tableCollapse1" class="accordion-collapse collapse show" aria-labelledby="tablePanel1" data-bs-parent="#tableAccordion">
+                <div class="accordion-body">
+                    {{ render_table("Table1",phenotable[0].columns, phenotable[0].iterrows()) }}
+                </div>
+            </div>
+        </div>
+    
+        <!-- 第二个手风琴面板 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="tablePanel2">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tableCollapse2" aria-expanded="false" aria-controls="tableCollapse2">
+                    <h4 class="text-success">Unstructed data - <small>VCF</small></h4>
+                </button>
+            </h2>
+            <div id="tableCollapse2" class="accordion-collapse collapse" aria-labelledby="tablePanel2" data-bs-parent="#tableAccordion">
+                <div class="accordion-body">
+                    {{ render_table("Table2", phenotable[1].columns, phenotable[1].iterrows()) }}
+                </div>
+            </div>
+        </div>
+    
+        <!-- 第三个手风琴面板 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="tablePanel3">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tableCollapse3" aria-expanded="false" aria-controls="tableCollapse3">
+                    <h4 class="text-success">Structed data - <small>GSCtool features</small></h4>
+                </button>
+            </h2>
+            <div id="tableCollapse3" class="accordion-collapse collapse" aria-labelledby="tablePanel3" data-bs-parent="#tableAccordion">
+                <div class="accordion-body">
+                    {{ render_table("Table3", phenotable[2].columns, phenotable[2].iterrows()) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
   
 <!-- 表型和数据路径下载表格 end -->
@@ -66,36 +130,36 @@
 <script>
     $(document).ready(function () {
         function initDataTable() {
-            $('#myTable').DataTable({
+            $('.myTable').DataTable({
               dom:
-                '<"row"<"col-md-6"B><"col-md-6 d-flex justify-content-end"f>>' +
+                '<"row"<"col-md-6 justify-content-start btn-group"B><"col-md-6 d-flex justify-content-end"f>>' +
                 '<"row"<"col-md-12"tr>>' +
                 '<"row"<"col-md-5"i><"col-md-7 d-flex justify-content-end"p>>',
               buttons: [
                 {
                   extend: 'csv',
                   text: 'Export CSV',
-                  className: 'btn btn-primary'
+                  className: 'btn btn-dark',
                 },
                 {
                   extend: 'excel',
                   text: 'Export Excel',
-                  className: 'btn btn-primary'
-                }
-              ]
+                  className: 'btn btn-dark',
+                },
+              ],
             });
           
             $('.dataTables_filter label').addClass('form-inline');
-        }
-
+          }
+          
         initDataTable();  
-        // 将 spiece 赋值给 JavaScript 变量
-        var spiece = "{{ spiece }}";
+        // 将 species 赋值给 JavaScript 变量
+        var species = "{{ species }}";
         
         function updateChartAndTable(Phenotype) {
             // 发送 Ajax 请求获取更新的数据
             $.ajax({
-                url: "{{ url_for('v1.download', spiece = spiece ) }}",
+                url: "{{ url_for('v1.download', species = species ) }}",
                 data: { 'data': Phenotype },
                 dataType: 'json',
                 type: "POST",
@@ -115,13 +179,20 @@
         function updateChart(phenofig) {
             var PhenoJson = JSON.parse(phenofig);
             Plotly.newPlot('chart', PhenoJson, {});
-            console.log('图片更新结束');
         }
         
         function updateTable(Table) {
-            $('#myTable').DataTable().destroy();
+            $('.myTable').DataTable().destroy();
             var TableJson = JSON.parse(Table);
-            var tableHeader = $('#myTable thead');
+            parseTable("#Table1", TableJson[0]);
+            parseTable("#Table2", TableJson[1]);
+            parseTable("#Table3", TableJson[2]);
+            initDataTable();        
+        }
+        
+        function parseTable(tableID, TableJson){
+            var tableSelector = tableID;
+            var tableHeader = $(tableSelector + ' thead');
             tableHeader.empty();
             var headers = TableJson.columns;
             var headerRow = $('<tr></tr>');
@@ -132,7 +203,7 @@
             };
             tableHeader.append(headerRow);
         
-            var tableBody = $('#myTable tbody');
+            var tableBody = $(tableSelector + ' tbody');;
             tableBody.empty();
             var rows = TableJson.data;
             for (let i = 0; i < rows.length; i++) {
@@ -145,7 +216,6 @@
                 };
                 tableBody.append(tableRow);
             };
-            initDataTable();        
         }
         
         $(document).ready(function () {
