@@ -22,8 +22,8 @@ services:
             - "./riceprediction:/gBreeder"
         depends_on: # 依赖关系
             - db
-            - blast
-            - jbrowse
+            # - blast
+            # - jbrowse
         environment:
             - DEBUG=False
             - TZ=Asia/Shanghai
@@ -34,45 +34,6 @@ services:
             - net
         tty: true
         stdin_open: true
-   
-    # nginx:
-    #     build: ./nginx
-    #     depends_on:
-    #         - web
-    #     restart: always
-    #     networks:
-    #         - net
-    #     ports:
-    #         - "8000:80"
-    #     volumes:
-    #         - ./nginx/log:/var/log/nginx
-    
-    blast:
-        build: ./blast
-        restart: always
-        ports: 
-            - "4567:4567"
-        networks: 
-            - net
-        tty: true
-
-    # jbrowse:
-    #     build: ./jbrowse
-    #     restart: always
-    #     # volumes_from: 
-    #     networks:
-    #         - net
-    #     ports: 
-    #         - "5001:5001"
-    jbrowse:
-        build: ./jbrowse
-        # image: rice_docker_jbrowse
-        ports:
-            - "5001:5001"
-        command: npx http-server -a 0.0.0.0 -p 5001
-        networks:
-            - net
-        restart: always        
-
+     
 networks:
     net:

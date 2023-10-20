@@ -5,7 +5,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app.libs.redprint import Redprint
 from app.validations.upload import UploadForm
 from app.validations.info import InfoForm
-from app.models.uploadata import UploadedData
+from app.models.newdata import NewData
 from app.models.info import Info
 from app.models.base import db
 api = Redprint('uplaod')
@@ -31,7 +31,7 @@ def upload():
             file.save('uploads/' + filename)
 
             # 将上传的数据保存到数据库
-            data = UploadedData(phenotype, specie, reference_genome, planting_region, planting_year, filename)
+            data = NewData(phenotype, specie, reference_genome, planting_region, planting_year, filename)
             data.save()
 
             flash('File uploaded successfully! Thank you.', 'success')

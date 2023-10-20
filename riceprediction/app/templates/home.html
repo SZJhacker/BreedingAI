@@ -2,49 +2,65 @@
  * @Author: shenzijie
  * @Date: 2022-10-17 00:43:37
  * @LastEditors: shenzijie
- * @LastEditTime: 2023-08-28 01:35:44
+ * @LastEditTime: 2023-10-14 14:54:56
  * @Email: shenzijie2013@163.com
 -->
 {% extends "layout.html" %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('v1.static', filename='icon/iconfont.css') }}">
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.7.1/dist/g6.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 <section id="download_intruduction">
-    <div class="container">     
+    <div class="container">
         <h1 class="mt-4 ">Major crops in BreedingAIDB</h1>
         <div class="border center-block"></div>
         <div class="row mt-4">
             <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', spiece='rice') }}">
+                <a href="{{ url_for('v1.download', species='rice') }}">
                     <div class="text-center">
                         <img src="{{ url_for('v1.static', filename='rice_download_icon.jpg') }}" alt="Rice"
                             class="rounded-circle" width="150" height="150">
                         <h4 class="mt-2">Rice</h4>
                     </div>
                 </a>
-                <p class="lead">129, 449 rice genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='rice') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+                <p class="lead">129, 449 rice genome-phenotype pairs available <a
+                        href="{{ url_for('v1.download', species='rice') }}">here</a> for validation of machine learning
+                    tools or construction of machine learning models.</p>
             </div>
-        
+
             <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', spiece='soybean') }}">
+                <a href="{{ url_for('v1.download', species='soybean') }}">
                     <div class="text-center">
                         <img src="{{ url_for('v1.static', filename='soy_down_icon.jpg') }}" alt="Soybean"
                             class="rounded-circle" width="150" height="150">
                         <h4 class="mt-2">Soybean</h4>
                     </div>
                 </a>
-                <p class="lead">16, 284 soybean genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='soybean') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+                <p class="lead">284, 395 soybean genome-phenotype pairs available <a
+                        href="{{ url_for('v1.download', species='soy') }}">here</a> for validation of machine learning
+                    tools or construction of machine learning models.</p>
             </div>
-        
+
             <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', spiece='zea') }}">
+                <a href="{{ url_for('v1.download', species='zea') }}">
                     <div class="text-center">
-                        <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="Zea" class="rounded-circle"
-                            width="150" height="150">
+                        <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="Zea"
+                            class="rounded-circle" width="150" height="150">
                         <h4 class="mt-2">Zea</h4>
                     </div>
                 </a>
-                <p class="lead">284, 395 zea genome-phenotype pairs available <a href="{{ url_for('v1.download', spiece='zea') }}">here</a> for validation of machine learning tools or construction of machine learning models.</p>
+                <p class="lead">16, 284 zea genome-phenotype pairs available <a
+                        href="{{ url_for('v1.download', species='zea') }}">here</a> for validation of machine learning
+                    tools or construction of machine learning models.</p>
             </div>
         </div>
     </div>
@@ -53,15 +69,263 @@
 
 <div class="container">
     <div class="row mt-4">
-        <p class="lead">Breeding is a crucial component of human agricultural production, and in order to meet the ever-increasing
+        <p class="lead">Breeding is a crucial component of human agricultural production, and in order to meet the
+            ever-increasing
             demand for food, it is imperative that we continually enhance the yield and quality of our crops. ML in
             breeding still faces many challenges and limitations, such as data, algorithm selection, and other issues.
         </p>
-        <p class="lead">We gathered genome-phenotype pair data for three crops that are currently accessible to the public. The
+        <p class="lead">We gathered genome-phenotype pair data for three crops that are currently accessible to the
+            public. The
             processing of genome resequencing data followed the best practice guidelines established by the Genome
             Sequencing and Analysis (GSA) team at the Broad Institute's GATK development team.</p>
     </div>
+    <div>
+        <h1>Process of ML</h1>
+    </div>
+    <div id="graph-container" style="width: 100%;"></div>
+    <div>
+        <p></p>
+    </div>
 </div>
+
+<script>
+    const Util = G6.Util;
+    // 注册iconfont
+    // 注册 'iconfont' 形状
+    G6.registerNode('iconfont', {
+        draw(cfg, group) {
+            const {
+                backgroundConfig: backgroundStyle,
+                style,
+                labelCfg: labelStyle,
+            } = cfg;
+
+            // 创建背景圆形，如果配置了背景样式的话
+            if (backgroundStyle) {
+                group.addShape('circle', {
+                    attrs: {
+                        x: 0,
+                        y: 0,
+                        r: cfg.size,
+                        ...backgroundStyle,
+                    },
+                });
+            }
+
+            // 创建图标文本
+            const keyShape = group.addShape('text', {
+                attrs: {
+                    x: 0,
+                    y: 0,
+                    fontFamily: 'iconfont', // 对应 CSS 里面的 font-family: "iconfont";
+                    textAlign: 'center',
+                    textBaseline: 'middle',
+                    text: cfg.text,
+                    fontSize: cfg.size,
+                    ...style,
+                },
+            });
+
+            // 计算标签文本的 Y 坐标位置
+            const labelY = backgroundStyle ? cfg.size * 2 : cfg.size;
+
+            // 创建标签文本
+            group.addShape('text', {
+                attrs: {
+                    x: 0,
+                    y: labelY,
+                    textAlign: 'center',
+                    text: cfg.label,
+                    ...labelStyle.style,
+                },
+            });
+
+            return keyShape;
+        },
+        afterDraw(cfg, group) {
+            if (cfg.animateBackground) {
+                // 添加背景动画的逻辑
+                const r = cfg.size * 1.2;
+                const delay = cfg.delay || 0; // You can set a delay if needed
+
+                // 创建第一个背景圆
+                const back1 = group.addShape('circle', {
+                    zIndex: -3,
+                    attrs: {
+                        x: 0,
+                        y: 0,
+                        r,
+                        fill: cfg.color,
+                        opacity: 0.6,
+                    },
+                });
+
+                // 创建第二个背景圆
+                const back2 = group.addShape('circle', {
+                    zIndex: -2,
+                    attrs: {
+                        x: 0,
+                        y: 0,
+                        r,
+                        fill: cfg.color,
+                        opacity: 0.6,
+                    },
+                });
+
+                // 创建第三个背景圆
+                const back3 = group.addShape('circle', {
+                    zIndex: -1,
+                    attrs: {
+                        x: 0,
+                        y: 0,
+                        r,
+                        fill: cfg.color,
+                        opacity: 0.6,
+                    },
+                });
+
+                // 对元素进行排序，根据 zIndex 排序
+                group.sort();
+
+                // 添加第一个背景圆的动画效果
+                back1.animate(
+                    {
+                        r: r + 10,
+                        opacity: 0.1,
+                        repeat: true,
+                    },
+                    3000,
+                    'easeCubic',
+                    null,
+                    0
+                );
+
+                // 添加第二个背景圆的动画效果
+                back2.animate(
+                    {
+                        r: r + 10,
+                        opacity: 0.1,
+                        repeat: true,
+                    },
+                    3000,
+                    'easeCubic',
+                    null,
+                    1000
+                );
+
+                // 添加第三个背景圆的动画效果
+                back3.animate(
+                    {
+                        r: r + 10,
+                        opacity: 0.1,
+                        repeat: true,
+                    },
+                    3000,
+                    'easeCubic',
+                    null,
+                    2000
+                );
+            }
+        },
+    });
+
+
+    const COLOR = '#6699FF'; // 主要颜色
+    const LABEL_COLOR = '#000000'; // 标签颜色
+
+    const width = document.getElementById('graph-container').offsetWidth;
+    const graph = new G6.Graph({
+        container: 'graph-container',
+        width: width,
+        height: 450,
+        renderer: 'svg',
+        defaultNode: {
+            backgroundConfig: {
+                backgroundType: 'circle',
+                fill: COLOR,
+                stroke: 'Black',
+            },
+            shape: 'iconfont',
+            size: 33,
+            style: {
+                fill: '#000',
+                fontSize: 48,
+            },
+            labelCfg: {
+                style: {
+                    fill: LABEL_COLOR,
+                    fontSize: 15,
+                },
+            },
+        },
+        defaultEdge: {
+            style: {
+                stroke: 'black',
+                lineWidth: 2,
+            },
+        },
+    });
+    const data = {
+        nodes: [
+            { id: 'start', x: 50, y: 200, label: 'Start', text: '\ue620' },
+            { id: 'gvcf', x: 350, y: 50, label: 'Unstructured: GVCF', animateBackground: true, color: '#6699FF', text: "\ue744" },
+            { id: 'vcf', x: 350, y: 200, label: 'Unstructured: VCF', animateBackground: true, color: '#6699FF', text: "\ue744" },
+            { id: 'gsctool', x: 350, y: 350, label: 'Structured: gsctool', animateBackground: true, color: '#6699FF', text: "\ue744" },
+            { id: 'featureX', x: 750, y: 75, label: 'Feature Extraction X', text: '\ue623' },
+            { id: 'Feature Extract(GSCtool)', x: 750, y: 250, label: 'Feature Extraction GSCtool', animateBackground: true, color: '#6699FF', text: '\ue623' },
+            { id: 'model', x: 1150, y: 350, label: 'Model Training', animateBackground: true, color: '#6699FF', text: '\ue60a' },
+            { id: 'predict', x: 1150, y: 50, label: 'Phenotype Prediction', animateBackground: true, color: '#6699FF', text: '\ue88e' },
+        ],
+        edges: [
+            { source: 'start', target: 'gvcf' },
+            { source: 'start', target: 'vcf' },
+            { source: 'start', target: 'gsctool' },
+            {
+                source: 'gvcf', target: 'featureX', style: {
+                    lineDash: [4, 4], stroke: 'black', 
+                    lineWidth: 2 }},
+            {source: 'vcf', target: 'featureX', style: {
+                    lineDash: [4, 4], stroke: 'black', 
+                    lineWidth: 2  }},
+            { source: 'vcf', target: 'Feature Extract(GSCtool)' },
+            {source: 'featureX', target: 'model', style: {
+                    lineDash: [4, 4], stroke: 'black', 
+                    lineWidth: 2 }},
+            { source: 'Feature Extract(GSCtool)', target: 'model' },
+            { source: 'Feature Extract(GSCtool)', target: 'predict' },
+            { source: 'gsctool', target: 'model' },
+            { source: 'gsctool', target: 'predict' },
+        ],
+    };
+
+    graph.data(data);
+    graph.render();
+
+    graph.on('node:click', (e) => {
+        const nodeId = e.item.getModel().id;
+        switch (nodeId) {
+            case 'gvcf':
+                window.location.href = "{{ url_for('v1.download', species='rice') }}";
+                break;
+            case 'vcf':
+                window.location.href = "{{ url_for('v1.download', species='rice') }}";
+                break;
+            case 'gsctool':
+                window.location.href = "{{ url_for('v1.download', species='rice') }}";
+                break;
+            case 'Feature Extract(GSCtool)':
+                window.location.href = "{{ url_for('v1.features') }}";
+                break;
+            case 'model':
+                window.location.href = "{{ url_for('v1.model') }}";
+                break;
+            case 'predict':
+                window.location.href = "{{ url_for('v1.predict') }}";
+                break;
+            // Add more cases for other nodes as needed
+        }
+    });
+</script>
 
 
 <!-- 内容结束 -->

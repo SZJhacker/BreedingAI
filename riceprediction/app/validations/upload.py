@@ -8,6 +8,10 @@ from wtforms.validators import DataRequired
 
 
 class UploadFile(FlaskForm):
+    file = FileField('Upload a File', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class UploadFilegz(UploadFile):
     file = FileField(
         'Please upload a gzip-compressed VCF file with a maximum file size of 100MB.',
         validators=[FileRequired(),
@@ -18,13 +22,10 @@ class UploadFile(FlaskForm):
         choices=[('rice', 'Rice'), ('soybean', 'Soybean'), ('zea', 'Zea')],  # 选项列表
         default='rice'  # 默认选项
     )
-    submit = SubmitField('Submit')
 
 
-class UploadForm(UploadFile):
-    file = FileField('File', validators=[DataRequired()])
+class UploadForm(UploadFilegz):
     phenotype = StringField('Phenotype', validators=[DataRequired()])
-    # specie = StringField('Specie', validators=[DataRequired()])
     reference_genome = StringField('Reference Genome', validators=[DataRequired()])
     planting_region = StringField('Planting Region')
     planting_year = StringField('Planting Year')

@@ -222,7 +222,7 @@
                     <label class="col-md-3 col-form-label text-md-end fw-bolder">Features:</label>
                     <div class="col-md-6">
                         {{ render_field(space.features, form_type='inline') }}
-                        <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_example.csv') }}" download>Download Example File</a></p>
+                        <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_label.csv') }}" download>Download Example File</a></p>
                         {{ render_field(space.submit, button_style='primary') }}
                     </div>
                 </div>

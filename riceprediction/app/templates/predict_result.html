@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" type="text/css">
+<style>
+    .form-inline .form-control {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+      }
+</style>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+{% endblock script %}
+
+{% block content %}
+<div class="container">
+    <h2>Prediction Results</h2>
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr class="table-active">
+                <th>GW Prediction (mm)</th>
+                <th>GL Prediction (mm)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in result_data %}
+                <tr>
+                    <td>{{ data.gw[0] | round(2) }}</td>
+                    <td>{{ data.gl[0] | round(2) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+</div>
+
+<script>
+    $(document).ready(function () {
+        function initDataTable() {
+            $('.table').DataTable({
+                dom:
+                    '<"row"<"col-md-6 justify-content-start btn-group"B><"col-md-6 d-flex justify-content-end"f>>' +
+                    '<"row"<"col-md-12"tr>>' +
+                    '<"row"<"col-md-5"i><"col-md-7 d-flex justify-content-end"p>>',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        text: 'Export CSV',
+                        className: 'btn btn-dark',
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Export Excel',
+                        className: 'btn btn-dark',
+                    },
+                ],
+            });
+
+            $('.dataTables_filter label').addClass('form-inline');
+        }
+        initDataTable();
+    }); 
+</script>
+
+{% endblock content %}

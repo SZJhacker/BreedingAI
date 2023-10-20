@@ -1,0 +1,79 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "846526",
+      "name": "销量预测",
+      "font_class": "xiaoliangyuce",
+      "unicode": "e88e",
+      "unicode_decimal": 59534
+    },
+    {
+      "icon_id": "1367330",
+      "name": "数据库表",
+      "font_class": "shujukubiao",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "2611804",
+      "name": "云数据库",
+      "font_class": "yunshujuku",
+      "unicode": "e744",
+      "unicode_decimal": 59204
+    },
+    {
+      "icon_id": "5978731",
+      "name": "neural-network",
+      "font_class": "shenjingwangluo",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "8765123",
+      "name": "数据库",
+      "font_class": "shujuku",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "14976597",
+      "name": "值转换",
+      "font_class": "zhizhuanhuan",
+      "unicode": "e534",
+      "unicode_decimal": 58676
+    },
+    {
+      "icon_id": "23053137",
+      "name": "大数据",
+      "font_class": "dashuju",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "23307482",
+      "name": "开始",
+      "font_class": "kaishi",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "25434297",
+      "name": "leftbar_特征转换",
+      "font_class": "leftbar_tezhengzhuanhuan",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "29818310",
+      "name": "进军实训",
+      "font_class": "jinjunshixun",
+      "unicode": "e6f8",
+      "unicode_decimal": 59128
+    }
+  ]
+}

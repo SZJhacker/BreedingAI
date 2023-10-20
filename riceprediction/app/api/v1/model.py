@@ -96,7 +96,6 @@ def model():
         #                                     index=X.columns.values,
         #                                     columns=['feature_importance']).sort_values('feature_importance').tail(10)
         # fig_features = figjson(px.bar(feature_importance, orientation='h', height=400))
-        print('分析完成')
         # return render_template('predict_results.html', graphJSON_history=fig_history, graphJSON_paras=fig_para, graphJSON_features=fig_features)
 
         

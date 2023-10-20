@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+{{ super() }}
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Optimization History </h1>
+    
+    <div id="chart1"></div>
+    <h1>Param Importances</h1>
+    <div id="chart2"></div>
+    <h1>Feature Importances</h1>
+    <div id="chart3"></div>
+    
+    <script type='text/javascript'>
+        var graph_history = {{graphJSON_history | safe}};
+        Plotly.plot('chart1', graph_history, {});
+        
+        var graph_paras = {{graphJSON_paras | safe}};
+        Plotly.plot('chart2', graph_paras, {});
+    
+        var graph_features = {{graphJSON_features | safe}};
+        Plotly.plot('chart3', graph_features, {});
+    </script>
+</div>
+{% endblock content %}

@@ -5,7 +5,7 @@ import os,time
 from flask import render_template, current_app, send_file, after_this_request
 from app.libs.redprint import Redprint
 from app.libs.gsctool import GenomeFeature
-from app.validations.upload import UploadFile
+from app.validations.upload import UploadFilegz
 
 api = Redprint('ML')
 
@@ -16,7 +16,7 @@ def generate_name(spiece):
 
 @api.route('/features', endpoint='features', methods=['GET', 'POST'])
 def features():
-    form = UploadFile()
+    form = UploadFilegz()
     if form.validate_on_submit():
         vcffile = form.file.data
         species = form.species.data

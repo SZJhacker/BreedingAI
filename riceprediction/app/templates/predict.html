@@ -1,6 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<header class="bg-light bg-gradient text-dark text-center py-5">
+    <div class="container">
+        <h1>Predcition of Phenotype</h1>
+        <p class="lead"></p>
+    </div>
+</header>
+
 {% from 'bootstrap5/form.html' import render_field %}
 <div class="container">
     <form method="POST" enctype="multipart/form-data">
@@ -10,9 +17,10 @@
             <label class="col-md-3 col-form-label text-md-end fw-bolder">Feature File:</label>
             <div class="col-md-6">
                 {{ render_field(form.file, form_type='inline') }}
+                <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_nolabel.csv') }}" download>Download Example File</a></p>
+                {{ render_field(form.submit) }}
             </div>
         </div>
-        {{ render_field(form.submit) }}
     </form>
 </div>
 

@@ -3,16 +3,15 @@
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" type="text/css">
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css"> -->
 <style>
     .form-inline .form-control {
         display: inline-block;
         width: auto;
         vertical-align: middle;
-      }
+    }
 </style>
-  
 {% endblock %}
+
 {% block script %}
 {{ super() }}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -21,17 +20,20 @@
     src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript"
     src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 {% endblock script %}
 
 
 
 {% block content %}
 {% macro render_table(idname,columns, rows) %}
-<table id="{{ idname }}" class="myTable table diaplay"  style="width:100%">
+<table id="{{ idname }}" class="myTable table diaplay" style="width:100%">
     <thead class="table-dark">
         <tr>
             {% for header in columns %}
@@ -66,7 +68,7 @@
     </div>
     <!-- 下拉框 end -->
     <br>
-    
+
     <!-- 表型分布图 start -->
     <div id="chart" class='border border-light'></div>
     <hr>
@@ -83,79 +85,85 @@
         <!-- 第一个手风琴面板 -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="tablePanel1">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tableCollapse1" aria-expanded="true" aria-controls="tableCollapse1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#tableCollapse1" aria-expanded="true" aria-controls="tableCollapse1">
                     <h4 class="text-success">Unstructed data - <small>GVCF</small></h4>
                 </button>
             </h2>
-            <div id="tableCollapse1" class="accordion-collapse collapse show" aria-labelledby="tablePanel1" data-bs-parent="#tableAccordion">
+            <div id="tableCollapse1" class="accordion-collapse collapse show" aria-labelledby="tablePanel1"
+                data-bs-parent="#tableAccordion">
                 <div class="accordion-body">
                     {{ render_table("Table1",phenotable[0].columns, phenotable[0].iterrows()) }}
                 </div>
             </div>
         </div>
-    
+
         <!-- 第二个手风琴面板 -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="tablePanel2">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tableCollapse2" aria-expanded="false" aria-controls="tableCollapse2">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#tableCollapse2" aria-expanded="false" aria-controls="tableCollapse2">
                     <h4 class="text-success">Unstructed data - <small>VCF</small></h4>
                 </button>
             </h2>
-            <div id="tableCollapse2" class="accordion-collapse collapse" aria-labelledby="tablePanel2" data-bs-parent="#tableAccordion">
+            <div id="tableCollapse2" class="accordion-collapse collapse" aria-labelledby="tablePanel2"
+                data-bs-parent="#tableAccordion">
                 <div class="accordion-body">
                     {{ render_table("Table2", phenotable[1].columns, phenotable[1].iterrows()) }}
                 </div>
             </div>
         </div>
-    
+
         <!-- 第三个手风琴面板 -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="tablePanel3">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tableCollapse3" aria-expanded="false" aria-controls="tableCollapse3">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#tableCollapse3" aria-expanded="false" aria-controls="tableCollapse3">
                     <h4 class="text-success">Structed data - <small>GSCtool features</small></h4>
                 </button>
             </h2>
-            <div id="tableCollapse3" class="accordion-collapse collapse" aria-labelledby="tablePanel3" data-bs-parent="#tableAccordion">
+            <div id="tableCollapse3" class="accordion-collapse collapse" aria-labelledby="tablePanel3"
+                data-bs-parent="#tableAccordion">
                 <div class="accordion-body">
                     {{ render_table("Table3", phenotable[2].columns, phenotable[2].iterrows()) }}
                 </div>
             </div>
         </div>
     </div>
-    
+
 </div>
-  
+
 <!-- 表型和数据路径下载表格 end -->
 
 <script>
     $(document).ready(function () {
         function initDataTable() {
             $('.myTable').DataTable({
-              dom:
-                '<"row"<"col-md-6 justify-content-start btn-group"B><"col-md-6 d-flex justify-content-end"f>>' +
-                '<"row"<"col-md-12"tr>>' +
-                '<"row"<"col-md-5"i><"col-md-7 d-flex justify-content-end"p>>',
-              buttons: [
-                {
-                  extend: 'csv',
-                  text: 'Export CSV',
-                  className: 'btn btn-dark',
-                },
-                {
-                  extend: 'excel',
-                  text: 'Export Excel',
-                  className: 'btn btn-dark',
-                },
-              ],
+                dom:
+                    '<"row"<"col-md-6 justify-content-start btn-group"B><"col-md-6 d-flex justify-content-end"f>>' +
+                    '<"row"<"col-md-12"tr>>' +
+                    '<"row"<"col-md-5"i><"col-md-7 d-flex justify-content-end"p>>',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        text: 'Export CSV',
+                        className: 'btn btn-dark',
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Export Excel',
+                        className: 'btn btn-dark',
+                    },
+                ],
             });
-          
+
             $('.dataTables_filter label').addClass('form-inline');
-          }
-          
-        initDataTable();  
+        }
+
+        initDataTable();
         // 将 species 赋值给 JavaScript 变量
         var species = "{{ species }}";
-        
+
         function updateChartAndTable(Phenotype) {
             // 发送 Ajax 请求获取更新的数据
             $.ajax({
@@ -175,22 +183,22 @@
                 }
             });
         }
-        
+
         function updateChart(phenofig) {
             var PhenoJson = JSON.parse(phenofig);
             Plotly.newPlot('chart', PhenoJson, {});
         }
-        
+
         function updateTable(Table) {
             $('.myTable').DataTable().destroy();
             var TableJson = JSON.parse(Table);
             parseTable("#Table1", TableJson[0]);
             parseTable("#Table2", TableJson[1]);
             parseTable("#Table3", TableJson[2]);
-            initDataTable();        
+            initDataTable();
         }
-        
-        function parseTable(tableID, TableJson){
+
+        function parseTable(tableID, TableJson) {
             var tableSelector = tableID;
             var tableHeader = $(tableSelector + ' thead');
             tableHeader.empty();
@@ -202,7 +210,7 @@
                 headerRow.append(td);
             };
             tableHeader.append(headerRow);
-        
+
             var tableBody = $(tableSelector + ' tbody');;
             tableBody.empty();
             var rows = TableJson.data;
@@ -217,14 +225,14 @@
                 tableBody.append(tableRow);
             };
         }
-        
+
         $(document).ready(function () {
             // 监听下拉框的变化事件
             $('#mySelect').on('change', function () {
                 var Phenotype = $(this).val(); // 获取选中的选项
                 updateChartAndTable(Phenotype); // 更新表格和图表内容
             });
-        });    
+        });
     });   
 </script>
 

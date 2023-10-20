@@ -3,8 +3,10 @@
 {% block script %}
 {{ super() }}
 <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
-<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script>
+<!-- <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script> -->
+<script type="text/javascript" src="{{ url_for('v1.static', filename='js/china.js') }}"></script>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<!-- <script src="{{ url_for('v1.static', filename='js/plotly.min.js') }}" charset="utf-8"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}
 

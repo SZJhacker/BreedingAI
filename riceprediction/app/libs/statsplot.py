@@ -12,7 +12,7 @@ class DataVisualization:
     tab = Tab()
     def __init__(self, csv_file):
         self.data = pd.read_csv(csv_file, dtype={'Years': str})
-        self.com_cols = ['Sample_ID', 'Bioproject', 'Name_cn', 'Name', 'Treatment', 'Years', 'Region', 'Region_cn']
+        self.com_cols = ['Sample_ID', 'Bioproject', 'Name_cn', 'Name', 'Treatment', 'Years', 'location', 'Region', 'Region_cn']
         self.pheno_stats = self.data.drop(columns=self.com_cols).count()
         self.data['Counts'] = self.data.drop(columns=self.com_cols).count(axis=1)
         self.labels = self.pheno_stats.index
@@ -36,8 +36,8 @@ class DataVisualization:
         return sun_tree
 
     def draw_map(self, title):
-        map_data_pre = self.data[['Region_cn', 'Counts']].groupby(['Region_cn'])['Counts'].sum().reset_index(name='Counts')
-        map_data = [(p, c) for p, c in zip(map_data_pre['Region_cn'], map_data_pre['Counts'])]
+        map_data_pre = self.data[['Region', 'Counts']].groupby(['Region'])['Counts'].sum().reset_index(name='Counts')
+        map_data = [(p, c) for p, c in zip(map_data_pre['Region'], map_data_pre['Counts'])]
         # map_chart = Map(init_opts=opts.InitOpts(theme='light'))
         self.map_chart.add(title, data_pair=map_data, maptype="china", is_map_symbol_show=False, aspect_scale=0.9,
                       zoom=1.2, pos_left='10%', pos_right='10%', pos_top='10%', map_value_calculation="sum")

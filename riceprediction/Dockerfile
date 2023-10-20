@@ -1,12 +1,11 @@
 # Use an official Python runtime as a parent image
 FROM python:3.8.0
 
-ADD sources.list /etc/apt/sources.list
 # Set the working directory to /gBreeder
 WORKDIR /gBreeder
 
 # Copy the current directory contents into the container at /app
-COPY ./requirement.txt  ./install.sh  /gBreeder/
+COPY ./requirement.txt  /gBreeder/
 SHELL ["/bin/bash","-c"]
 # -- Install dependencies
 ENV PIP_INDEX_URL https://mirrors.aliyun.com/pypi/simple/
