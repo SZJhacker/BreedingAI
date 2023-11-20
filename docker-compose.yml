@@ -22,8 +22,6 @@ services:
             - "./riceprediction:/gBreeder"
         depends_on: # 依赖关系
             - db
-            # - blast
-            # - jbrowse
         environment:
             - DEBUG=False
             - TZ=Asia/Shanghai

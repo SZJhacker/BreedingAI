@@ -1,15 +1,42 @@
-<!--
- * @Author: shenzijie
- * @Date: 2022-10-17 00:43:37
- * @LastEditors: shenzijie
- * @LastEditTime: 2023-10-14 14:54:56
- * @Email: shenzijie2013@163.com
--->
 {% extends "layout.html" %}
 
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('v1.static', filename='icon/iconfont.css') }}">
+<style>
+    .gradient-background {
+        background: linear-gradient(to right, #69696b, #f8faf8);
+    }
+
+    /* Add your home page styles here */
+    .nav-bg {
+        position: relative;
+        overflow: hidden; /* 用于包含 ::before 中的伪元素 */
+    }
+
+    .nav-bg::before {
+        content: '';
+        position: absolute;
+        filter: none; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url({{ url_for('v1.static', filename='img/background1.jpg') }}) no-repeat center center / cover;
+        /*opacity: 0.6;  设置背景图片的透明度 */
+        z-index: -1;
+    }
+
+    #introduction {
+        background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6)), url({{ url_for('v1.static', filename='img/middle-bg.jpg') }}) no-repeat center center / cover;
+    }
+
+    .blue-gradient {
+        background: -webkit-linear-gradient(left, rgb(1, 39, 136), rgb(187, 211, 241));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+</style>
 {% endblock %}
 
 {% block script %}
@@ -17,80 +44,162 @@
 <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.7.1/dist/g6.min.js"></script>
 {% endblock %}
 
+
+{% block summary %}
+    <div class="container" >
+        <div class="row col-md-10 mx-auto p-3 m-3">
+            <h1 class="text-white">BreedingAIDB: a database integrating crop genotype-to-phenotype data with machine learning tools applicable in breeding</h1>
+            <p class="text-white fs-4 mt-3">Welcome to BreedingAIDB, where we provide crop-rich genotype-to-phenotype pairs data and powerful machine learning (ML) tools.</p>
+        </div>       
+    </div>
+{% endblock %}
+
 {% block content %}
 
-<section id="download_intruduction">
+<section id="About" class="container">
+    <div class="container m-3">
+        <div class="d-flex justify-content-center">
+            <div class="row col-md-10 align-items-center">
+              <div class="col-md-7">
+                  <h1 class="blue-gradient">About BreedingAIDB</h1>
+                  <p class="fs-4 mt-4 text-justify"> BreedingAIDB will promote application of ML in breeding practices. This resource provides a valuable foundation for the application of
+                      machine learning in G2P prediction and breeding practices.</p>
+              </div>
+              <div class="col-md-4">
+                <img class='rounded float-end' src="{{ url_for('v1.static', filename='img/crop-rice.jpg') }}" alt="rice-crop" style="height: 400px;width=400px">
+              </div>
+            </div>
+        </div>
+      </div>
+</section>
+
+<section id="introduction">
+    <div class="container d-flex align-items-center" style="height: 300px;">
+        <div class="row col-md-10 mx-auto p-4">
+            <h1 class="blue-gradient">Introduction</h1>
+            <p class="lead mt-3">BreedingAIDB provide breeders and machine learning experts with easily accessible genotype-to-phenotype pair data of crops (the Release 1.0 includes rice, soybean, and maize), and G2P prediction tools. </p>
+        </div>  
+    </div>
+</section>
+
+<section id="crops" class="bg-info bg-opacity-10 p-3">
     <div class="container">
-        <h1 class="mt-4 ">Major crops in BreedingAIDB</h1>
-        <div class="border center-block"></div>
-        <div class="row mt-4">
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', species='rice') }}">
-                    <div class="text-center">
-                        <img src="{{ url_for('v1.static', filename='rice_download_icon.jpg') }}" alt="Rice"
-                            class="rounded-circle" width="150" height="150">
-                        <h4 class="mt-2">Rice</h4>
+        <div class="bg-white m-3 p-3 rounded d-flex justify-content-center">
+            <div id="crops-detail" class="col-md-10">
+                <h1 class="blue-gradient mt-5 ">Crops in BreedingAIDB</h1>
+                <div class="row d-flex justify-content-around">
+                    <div class="col-md bg-info p-3 rounded m-3 bg-opacity-25">
+                        <a href="{{ url_for('v1.download', species='rice') }}">
+                            <div class="text-center">
+                                <img src="{{ url_for('v1.static', filename='rice_download_icon.jpg') }}" alt="Rice"
+                                    class="rounded-circle" width="150" height="150">
+                                <h4 class="mt-2">Rice</h4>
+                            </div>
+                        </a>
+                        <p class="lead">129, 449 rice genome-to-phenotype pairs available <a
+                                href="{{ url_for('v1.download', species='rice') }}">here</a>.</p>
                     </div>
-                </a>
-                <p class="lead">129, 449 rice genome-phenotype pairs available <a
-                        href="{{ url_for('v1.download', species='rice') }}">here</a> for validation of machine learning
-                    tools or construction of machine learning models.</p>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', species='soybean') }}">
-                    <div class="text-center">
-                        <img src="{{ url_for('v1.static', filename='soy_down_icon.jpg') }}" alt="Soybean"
-                            class="rounded-circle" width="150" height="150">
-                        <h4 class="mt-2">Soybean</h4>
+        
+                    <div class="col-md bg-info p-3 rounded m-3 bg-opacity-25">
+                        <a href="{{ url_for('v1.download', species='soybean') }}">
+                            <div class="text-center">
+                                <img src="{{ url_for('v1.static', filename='soy_down_icon.jpg') }}" alt="Soybean"
+                                    class="rounded-circle" width="150" height="150">
+                                <h4 class="mt-2">Soybean</h4>
+                            </div>
+                        </a>
+                        <p class="lead">284, 395 soybean genome-to-phenotype pairs available <a
+                                href="{{ url_for('v1.download', species='soy') }}">here</a>.</p>
                     </div>
-                </a>
-                <p class="lead">284, 395 soybean genome-phenotype pairs available <a
-                        href="{{ url_for('v1.download', species='soy') }}">here</a> for validation of machine learning
-                    tools or construction of machine learning models.</p>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('v1.download', species='zea') }}">
-                    <div class="text-center">
-                        <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="Zea"
-                            class="rounded-circle" width="150" height="150">
-                        <h4 class="mt-2">Zea</h4>
+        
+                    <div class="col-md bg-info p-3 rounded m-3 bg-opacity-25">
+                        <a href="{{ url_for('v1.download', species='zea') }}">
+                            <div class="text-center">
+                                <img src="{{ url_for('v1.static', filename='zea_down_icon.png') }}" alt="maize"
+                                    class="rounded-circle" width="150" height="150">
+                                <h4 class="mt-2">Maize</h4>
+                            </div>
+                        </a>
+                        <p class="lead">16, 284 maize genome-to-phenotype pairs available <a
+                                href="{{ url_for('v1.download', species='zea') }}">here</a>.</p>
                     </div>
-                </a>
-                <p class="lead">16, 284 zea genome-phenotype pairs available <a
-                        href="{{ url_for('v1.download', species='zea') }}">here</a> for validation of machine learning
-                    tools or construction of machine learning models.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+<section id="process" class="m-5">
+    <div class="container">
+        <div id="graph-container" style="width: 100%;"></div>
+    </div>
+</section>
 
-<div class="container">
-    <div class="row mt-4">
-        <p class="lead">Breeding is a crucial component of human agricultural production, and in order to meet the
-            ever-increasing
-            demand for food, it is imperative that we continually enhance the yield and quality of our crops. ML in
-            breeding still faces many challenges and limitations, such as data, algorithm selection, and other issues.
-        </p>
-        <p class="lead">We gathered genome-phenotype pair data for three crops that are currently accessible to the
-            public. The
-            processing of genome resequencing data followed the best practice guidelines established by the Genome
-            Sequencing and Analysis (GSA) team at the Broad Institute's GATK development team.</p>
+<section id="dtype" class="m-5">
+    <div class="container">
+        <div class="col-md-10 mx-auto p-4">
+            <h1 class="blue-gradient">Type of G2P Data</h1>
+            <div class="row mt-3 d-flex justify-content-around">
+                <div class="col-md p-3">
+                    <h4 class="blue-gradient">GVCF-to-phenotype pairs</h4>
+                    <ul>
+                        <li class="lead">Unstructured data</li>
+                        <li class="lead">GVCF files cover all loci in the genome</li>
+                    </ul>
+                </div>
+                <div class="col-md p-3">
+                    <h4 class="blue-gradient">VCF-to-phenotype pairs</h4>
+                    <ul>
+                        <li class="lead">Unstructured data</li>
+                        <li class="lead">VCF files contain high-quality SNP information</li>
+                    </ul>
+
+                </div>
+                <div class="col-md p-3">
+                    <h4 class="blue-gradient">gsctool-to-phentype pairs</h4>
+                    <ul>
+                        <li class="lead">Structured data</li>
+                        <li class="lead">The gsctool features are generated by GSCtool</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div>
-        <h1>Process of ML</h1>
+</section>
+
+<section id="tools" class="m-5">
+    <div class="container">
+        <div class="col-md-10 mx-auto p-4">
+            <h1 class="blue-gradient">ML Tools</h1>
+            <div class="row mt-3 d-flex justify-content-around">
+                <div class="col-md p-3">
+                    <img class='rounded' style="height: 175px;"  src={{ url_for('v1.static', filename='img/feature_extract.jpg') }} alt="feature extraction">
+                    <h4 class="blue-gradient mt-4">Feature Extraction</h4>
+                    <p class="lead">The module utilizes GSCtool to extract
+                        essential genomic features.</p>
+                </div>
+                <div class="col-md p-3">
+                    <img class='rounded' style="height: 175px;"  src={{ url_for('v1.static', filename='img/g2p.jpg') }} alt="Phenotype Prediction">
+                    <h4 class="blue-gradient mt-4">Phenotype Prediction</h4>
+                    <p class="lead">The module offers predictions for grain length
+                        and width of rice, which can be easily done by uploading the feature files extracted by GSCtool</p>
+                </div>
+                <div class="col-md p-3">
+                    <img class='rounded' style="height: 175px;"  src={{ url_for('v1.static', filename='img/AI2.jpg') }} alt="ML Project">
+                    <h4 class="blue-gradient mt-4">ML Project</h4>
+                    <p class="lead">The module integrates Optuna and lightGBM to allow users to
+                        customize and optimize ML models
+                        for their specific research needs.</p>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div id="graph-container" style="width: 100%;"></div>
-    <div>
-        <p></p>
-    </div>
-</div>
+</section>
 
 <script>
     const Util = G6.Util;
-    // 注册iconfont
     // 注册 'iconfont' 形状
     G6.registerNode('iconfont', {
         draw(cfg, group) {
@@ -282,15 +391,23 @@
             { source: 'start', target: 'gsctool' },
             {
                 source: 'gvcf', target: 'featureX', style: {
-                    lineDash: [4, 4], stroke: 'black', 
-                    lineWidth: 2 }},
-            {source: 'vcf', target: 'featureX', style: {
-                    lineDash: [4, 4], stroke: 'black', 
-                    lineWidth: 2  }},
+                    lineDash: [4, 4], stroke: 'black',
+                    lineWidth: 2
+                }
+            },
+            {
+                source: 'vcf', target: 'featureX', style: {
+                    lineDash: [4, 4], stroke: 'black',
+                    lineWidth: 2
+                }
+            },
             { source: 'vcf', target: 'Feature Extract(GSCtool)' },
-            {source: 'featureX', target: 'model', style: {
-                    lineDash: [4, 4], stroke: 'black', 
-                    lineWidth: 2 }},
+            {
+                source: 'featureX', target: 'model', style: {
+                    lineDash: [4, 4], stroke: 'black',
+                    lineWidth: 2
+                }
+            },
             { source: 'Feature Extract(GSCtool)', target: 'model' },
             { source: 'Feature Extract(GSCtool)', target: 'predict' },
             { source: 'gsctool', target: 'model' },

@@ -52,4 +52,4 @@ class SearchSpace(FlaskForm):
         description=
         "The features vectors of your crop genomen, whose last column is assigned the labels, please upload the file with csv or tsv format"
     )
-    submit = SubmitField('Submit')
+    submit = SubmitField('Start Optimization')

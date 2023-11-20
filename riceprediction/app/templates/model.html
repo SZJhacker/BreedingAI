@@ -1,19 +1,18 @@
 {% extends "layout.html" %}
 {% block styles %}
-    {{ super() }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{{ super() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 {% endblock styles %}
 
 {% block content %}
 <header class="bg-light bg-gradient text-dark text-center py-5">
     <div class="container">
-        <h1>Search space for lightGBM</h1>
+        <h1>ML Project</h1>
         <p class="lead"> <a href="https://lightgbm.readthedocs.io/en/stable/">LightGBM</a> is a gradient-boosting
             framework for ML originally developed by Microsoft. <a
                 href="https://optuna.readthedocs.io/en/stable/">Optuna</a> is an automatic
-            hyperparameter optimization framework software, which help you find the best hyperparameters for your model.
-            In this function module, Optuna will seek out the optimal lightGBM hyperparameters in the following parameter
-            space, and return the .</p>
+            hyperparameter optimization framework software. Its primary objective is to employ Optuna in exploring the
+            optimal lightGBM model configurations within the hyperparameter space.</p>
     </div>
 </header>
 
@@ -25,13 +24,14 @@
     <div class="row justify-content-center">
 
         <div class="col-md-10 offset-md-1">
-    
+
             <form method="POST" enctype="multipart/form-data">
                 {{ space.hidden_tag() }}
-        
+
                 <!-- Group 1: Boosting Type and Metrics -->
                 <fieldset>
-                    <legend class="text-info border-bottom mb-4"><i class="fas fa-cogs mt-1"></i> Boosting Type and Metrics</legend>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-cogs mt-1"></i> Boosting Type and
+                        Metrics</legend>
                     <div class="form-group row">
                         <div class="col-md-3 col-form-label text-md-end fw-bolder">Boosting type:</div>
                         <div class="col-md-9 mt-2">
@@ -48,7 +48,8 @@
                 <br>
                 <!-- Group 2: Estimators and Learning Rates -->
                 <fieldset>
-                    <legend class="text-info border-bottom mb-4"><i class="fas fa-chart-line"></i>  Estimators and Learning Rates</legend>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-chart-line"></i> Estimators and
+                        Learning Rates</legend>
                     <div class="row">
                         <div for="{{ space.n_estimators_min.id }}"
                             class="col-md-3 col-form-label text-md-end fw-bolder">N_estimators:</div>
@@ -78,13 +79,13 @@
                             </div>
                         </div>
                     </div>
-        
+
                 </fieldset>
                 <br>
                 <!-- Group 3: Tree Parameters -->
                 <fieldset>
                     <!-- Repeat the same structure for other parameters -->
-                    <legend class="text-info border-bottom mb-4"><i class="fas fa-tree"></i>  Tree Parameters</legend>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-tree"></i> Tree Parameters</legend>
                     <div class="row">
                         <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Max depth:</div>
                         <div class="col-md-9">
@@ -99,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="row">
                         <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Leaves:</div>
                         <div class="col-md-9">
@@ -114,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="row">
                         <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Min child:</div>
                         <div class="col-md-9">
@@ -129,15 +130,17 @@
                             </div>
                         </div>
                     </div>
-        
+
                 </fieldset>
 
                 <br>
                 <!-- Group 4: Fractional Parameters -->
                 <fieldset>
-                    <legend class="text-info border-bottom mb-4"><i class="fas fa-random"></i>  Fractional Parameters</legend>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-random"></i> Fractional Parameters
+                    </legend>
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Features fraction:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Features fraction:
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -150,9 +153,10 @@
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Bagging fraction:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Bagging fraction:
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -165,13 +169,14 @@
                             </div>
                         </div>
                     </div>
-        
+
                 </fieldset>
-        
+
                 <!-- Group 5: Regularization Parameters -->
                 <br>
                 <fieldset>
-                    <legend class="text-info border-bottom mb-4"><i class="fas fa-balance-scale"></i>  Regularization Parameters</legend>
+                    <legend class="text-info border-bottom mb-4"><i class="fas fa-balance-scale"></i> Regularization
+                        Parameters</legend>
                     <div class="row">
                         <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Lambda L1:</div>
                         <div class="col-md-9">
@@ -186,7 +191,7 @@
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="row">
                         <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Lambda L2:</div>
                         <div class="col-md-9">
@@ -201,9 +206,9 @@
                             </div>
                         </div>
                     </div>
-        
+
                 </fieldset>
-        
+
                 <!-- Remaining Fields -->
                 <br>
                 <div class="form-group row">
@@ -222,7 +227,12 @@
                     <label class="col-md-3 col-form-label text-md-end fw-bolder">Features:</label>
                     <div class="col-md-6">
                         {{ render_field(space.features, form_type='inline') }}
-                        <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_label.csv') }}" download>Download Example File</a></p>
+                        <p class="text-grey text-start"> 
+                            <small>Upload feature files generated by any algorithm, with features
+                            and labels. Labels are identified by the column named "labels".<a
+                                href="{{ url_for('v1.static', filename='example/gsctool_label.csv') }}"
+                                download>Download Example File</a>
+                        </small> </p>
                         {{ render_field(space.submit, button_style='primary') }}
                     </div>
                 </div>

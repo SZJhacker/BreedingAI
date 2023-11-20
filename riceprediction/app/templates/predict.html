@@ -3,22 +3,22 @@
 {% block content %}
 <header class="bg-light bg-gradient text-dark text-center py-5">
     <div class="container">
-        <h1>Predcition of Phenotype</h1>
-        <p class="lead"></p>
+        <h1>Phenotype Prediction</h1>
+        <p class="lead"> The module offers predictions for grain length and width of rice, which can be easily done by uploading the feature files extracted by GSCtool </p>
     </div>
 </header>
-
+<br>
 {% from 'bootstrap5/form.html' import render_field %}
 <div class="container">
+    <div class="col-md-10 offset-md-1">
     <form method="POST" enctype="multipart/form-data">
         {{ form.csrf_token() }}
-        <p>Upload Your <a href={{ url_for('v1.features') }}>GSCtool</a> features</p>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-end fw-bolder">Feature File:</label>
+            <label class="col-md-3 col-form-label text-md-end fw-bolder">Upload <a href={{ url_for('v1.features') }}>GSCtool</a> features:</label>
             <div class="col-md-6">
                 {{ render_field(form.file, form_type='inline') }}
                 <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_nolabel.csv') }}" download>Download Example File</a></p>
-                {{ render_field(form.submit) }}
+                {{ render_field(form.submit,class="text-center") }}
             </div>
         </div>
     </form>

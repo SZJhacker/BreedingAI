@@ -12,9 +12,9 @@ api = Redprint('download')
 def process(file_path, phenoname, species):
     pheno = DataVisualization(file_path)
     # pheno = Info(file_path)
-    gvcftable = pheno.construct_table(phenoname, species=species, datatype='gvcf').fillna('-')
-    vcftable = pheno.construct_table(phenoname, species=species, datatype='vcf').fillna('-')
-    gsctable = pheno.construct_table(phenoname, species=species, datatype='gsctool').fillna('-')
+    gvcftable = pheno.construct_table(phenoname, species=species, datatype='gvcf', suffix='raw.g.vcf.gz').fillna('-')
+    vcftable = pheno.construct_table(phenoname, species=species, datatype='vcf', suffix='filtered.snp.vcf.gz').fillna('-')
+    gsctable = pheno.construct_table(phenoname, species=species, datatype='gsctool', suffix='gsctool.csv').fillna('-')
     graphJSON = pheno.plot_histogram(pheno=phenoname) # 返回分布图的json
     return (pheno, [gvcftable, vcftable, gsctable], graphJSON)
 

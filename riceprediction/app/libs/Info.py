@@ -5,7 +5,7 @@
 Author: shenzijie
 Date: 2022-10-15 22:11:39
 LastEditors: shenzijie
-LastEditTime: 2023-07-15 16:16:36
+LastEditTime: 2023-11-12 23:07:41
 Email: shenzijie2013@163.com
 '''
 
@@ -23,7 +23,7 @@ class Info:
         self.pheno_stats = self.pheno_values.count()
         self.labels = self.pheno_stats.index
         self.counts = self.pheno_stats.values
-        self.ftp_temp = 'https://{spiece}/{datatype}/{sampleid}'
+        self.ftp_temp = 'https://{spiece}/{datatype}/{sampleid}_{suffix}'
         self.table = ''
 
     def _figjson(self, fig):
@@ -44,9 +44,9 @@ class Info:
         fig.update_layout(height=height)
         return self._figjson(fig)
         
-    def construct_table(self, pheno_name, spiece='rice', datatype='SNPs'):
+    def construct_table(self, pheno_name, spiece='rice', datatype='SNPs', suffix='raw.g.vcf.gz'):
         headers = ['Sample_ID', 'Name', pheno_name, 'Treatment','Years', 'Region']
         pheno = self.data[headers].dropna(subset=[pheno_name])
-        pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(spiece=spiece, datatype=datatype, sampleid=x))
+        pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(spiece=spiece, datatype=datatype, sampleid=x, suffix=suffix))
         return pheno
         

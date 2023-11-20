@@ -2,8 +2,7 @@
 
 {% block script %}
 {{ super() }}
-<script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
-<!-- <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/maps/china.js"></script> -->
+<script type="text/javascript" src="{{ url_for('v1.static', filename='js/echarts.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('v1.static', filename='js/china.js') }}"></script>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <!-- <script src="{{ url_for('v1.static', filename='js/plotly.min.js') }}" charset="utf-8"></script> -->
@@ -40,7 +39,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Corn Planting Statistics</h4>
+                    <h4>Maize Planting Statistics</h4>
                 </div>
                 <div class="card-body">
                     <div id="zea_sun"></div>
@@ -70,13 +69,13 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#rice">rice</a>
+                    <a class="nav-link fs-4 active" data-bs-toggle="tab" href="#rice">rice</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#soy">soy</a>
+                    <a class="nav-link fs-4" data-bs-toggle="tab" href="#soy">soy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#zea">Zea</a>
+                    <a class="nav-link fs-4" data-bs-toggle="tab" href="#zea">Zea</a>
                 </li>
             </ul>
 
@@ -98,7 +97,17 @@
                 
                 var soymapChart = echarts.init(document.getElementById('soy'));
                 var soyOption = {{ map_charts['soy'] | safe }};    
-                soymapChart.setOption(soyOption);                                
+                soymapChart.setOption(soyOption);
+
+
+                // 获取所有包含 "南海诸岛" 文本的元素
+                var elements = document.querySelectorAll(':contains("南海诸岛")');
+                
+                // 替换每个元素中的文本
+                elements.forEach(function(element) {
+                    element.innerText = element.innerText.replace(/南海诸岛/g, 'Nanhai Islands');
+                });
+                                            
             </script>
 
         </div>

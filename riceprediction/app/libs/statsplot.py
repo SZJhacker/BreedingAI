@@ -17,7 +17,7 @@ class DataVisualization:
         self.data['Counts'] = self.data.drop(columns=self.com_cols).count(axis=1)
         self.labels = self.pheno_stats.index
         self.counts = self.pheno_stats.values
-        self.ftp_temp = 'https://ibi.zju.edu.cn/{species}/{datatype}/{sampleid}.gz'
+        self.ftp_temp = 'https://ibi.zju.edu.cn/CropG2PDB/{species}/{datatype}/{sampleid}_{suffix}'
 
         self.sunfig = go.Figure()
         self.map_chart = Map(init_opts=opts.InitOpts(theme='light'))
@@ -86,10 +86,10 @@ class DataVisualization:
         fig.update_layout(height=height)
         return self.__figjson(fig)
         
-    def construct_table(self, pheno_name, species='rice', datatype='GVCF'):
+    def construct_table(self, pheno_name, species='rice', datatype='GVCF', suffix='raw.g.vcf.gz'):
         headers = ['Sample_ID', 'Name', pheno_name, 'Years', 'Region']
         pheno = self.data[headers].dropna(subset=[pheno_name])
-        pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(species=species, datatype=datatype, sampleid=x))
+        pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(species=species, datatype=datatype, sampleid=x, suffix=suffix))
         return pheno
         
 

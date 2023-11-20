@@ -1,16 +1,46 @@
 {% extends "layout.html" %}
 
+{% block styles %}
+{{ super() }}
+<style>
+    .gradient-bg {
+        background: linear-gradient(to right, #222322, #f8faf8);
+    }
+
+    /* 调整侧边导航样式 */
+    .sidebar {
+        position: sticky;
+        top: 80px;
+        /* 调整粘性定位的高度 */
+        padding-top: 20px;
+        /* 调整顶部间距 */
+    }
+
+
+    .nav-link.active {
+        font-weight: bold;
+        /* 活动链接的粗体样式 */
+    }
+
+    .scrollspy-example {
+        position: relative;
+        height: 800px;
+        /* 增加高度以确保内容足够滚动 */
+        margin-top: .5rem;
+        overflow: auto;
+    }
+</style>
+{% endblock styles %}
 
 {% block content %}
 <div class="container">
     <div class="row">
 
         <div class="col-md-3">
-            <br>
             <div class="sidebar">
-                <nav class="nav flex-column nav-pills fs-5">
+                <nav class="nav flex-column nav-pills fs-5" id="list-example">
                     <a class="nav-link active" href="#introduction">Introduction</a>
-                    <a class="nav-link" href="#statics">Statics</a>
+                    <a class="nav-link" href="#statistics">Statistics</a>
                     <a class="nav-link" href="#download">Download</a>
                     <a class="nav-link" href="#ml">ML</a>
                     <a class="nav-link" href="#upload">Upload</a>
@@ -20,103 +50,112 @@
 
 
         <div class="col-md-9 ml-sm-auto">
-            <div id="introduction" class="card mt-4">
-                <div class="card-header">
-                    <h3><a href="{{ url_for('v1.index')}}">Introduction</a></h3>
-                </div>
-                <div class="card-body fs-5 lh-lg">
-                    <p class="card-text">Breeding 4.0 seeks to enhance breeding efficiency and precision by combining
-                        digital and biological technologies to achieve a faster, more efficient and more accurate
-                        breeding process. relies on big data, artificial intelligence, machine learning and genome
-                        editing technologies to collect, integrate and analyse large amounts of crop genomic, phenotypic
-                        and environmental data to predict phenotypic traits in plants and to target breeding on this
-                        basis. </p>
-                    <p class="card-text">We have developed BreedingAI, a user-friendly database that provides breeders
-                        and machine learning experts with easy access to genome-phenotype pair data. It provide two
-                        types of unstructured data: GVCF(genomic VCF) files and VCF files, along with one type of
-                        structured data which is extracted from vcf files by GSCtool, to facilitate research in breeding
-                        machine learning.</p>
-                </div>
-            </div>
+            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" tabindex="0">
 
-            <div id="statistics" class="card mt-4">
-                <div class="card-header">
-                    <h3><a href="{{ url_for('v1.statistics')}}">Statistics</a></h3>
+                <div id="introduction" class="card mt-4">
+                    <div class="card-header gradient-bg">
+                        <h3><a href="{{ url_for('v1.index')}}">Introduction</a></h3>
+                    </div>
+                    <div class="card-body fs-5 lh-lg">
+                        <p class="card-text">Conventional breeding techniques are struggling to address the challenges
+                            presented by climate change and the increasing global demand for agricultural products
+                            (1,2). Meeting these challenges demands renovation of breeding methods into the
+                            next-generation technologies, collectively known as Breeding 4.0. Central to this frontier
+                            is Genotype-to-Phenotype (G2P) prediction. For the prediction to be accurate and reliable,
+                            developing and optimizing machine learning (ML) algorithms is one of the keys. A major
+                            limitation nowadays to the employment of ML in breeding practices is the availability of
+                            substantial Genotype-to-Phenotype pairs data, i.e., lack of well-curated and labelled
+                            phenotypic data and their connection with genomic data, such as genetic variations.</p>
+                        <p class="card-text">BreedingAIDB is the first manually curated G2P pairs database specifically
+                            designed to support application of ML in G2P prediction and breeding practices. The Release
+                            1.0 includes the G2P pairs data of rice, soybean, and maize. In addition to G2P pairs data,
+                            BreedingAIDB offers three core functional modules: Feature Extraction, Phenotype Prediction,
+                            and ML Project, each designed to enhance the utility of this database.</p>
+                    </div>
                 </div>
-                <div class="card-body fs-5 lh-lg">
-                    <p class="card-text">You can find out more details about the data we have collected in this module.
-                    </p>
-                    <h4 class="card-title"> Rice</h4>
-                    <p class="card-text">Rice, a paramount staple crop, is represented by a collection of
-                        129,449 phenotypic records. This comprehensive assembly spans 12 distinct regions, spanning the
-                        years from 2011 through 2018 and extending to 2020. Encompassing a spectrum of 41 distinct
-                        traits, these phenotypic data illuminate facets ranging from growth patterns to yield
-                        attributes, thereby affording a holistic grasp of rice's developmental and productive
-                        expressions.</p>
-                    <h4 class="card-title">Soybean</h4>
-                    <p class="card-text">Soybean, renowned for its significance as both a proteinaceous and oleaginous
-                        crop, contributes 284,395 phenotypic entries. This dataset spans cultivation regions across five
-                        distinct locales, covering a span of years encompassing 2013 through 2019. Across these years,
-                        114 diverse phenotypic features are documented, forming a mosaic that captures the crop's
-                        multifaceted attributes.</p>
-                    <h4 class="card-title">Zea</h4>
-                    <p class="card-text">Maize, holding eminence as a vital food and fodder source, lends its essence
-                        with 16,284 phenotypic profiles. These profiles encapsulate three geographical domains and span
-                        the years 2016 and 2017, illuminating 18 distinct phenotypic attributes.</p>
-                </div>
-            </div>
 
-            <div id="download" class="card mt-4">
-                <div class="card-header">
-                    <h3><a href="{{ url_for('v1.download', species='rice') }}">Download</a></h3>
+                <div id="statistics" class="card mt-4">
+                    <div class="card-header  gradient-bg">
+                        <h3><a href="{{ url_for('v1.statistics')}}">Statistics</a></h3>
+                    </div>
+                    <div class="card-body fs-5 lh-lg">
+                        <p class="card-text">You can find out more details about the data we have collected in this
+                            module.
+                        </p>
+                        <ul>
+                            <li class="card-text">Rice, <em>Oryza sativa</em>, is the main staple food for over half the
+                                world's population, particularly in Asia. You can access 129,449 rice G2P
+                                pairs across 41 different phenotypes. This comprehensive collection spans 12 different
+                                regions and covers the years 2011 to 2018 and extends to 2020.</li>
+                            <li class="card-text">Soybean, <em>Glycine max</em>, known for its importance as a protein
+                                and oil crop. 284,395 soybean G2P pairs covering 114 different phenotypes are available
+                                to users. This dataset spans growing regions in five different locations and covers
+                                the years 2013 to 2019.</li>
+                            <li class="card-text">Maize, <em>Zea mays</em>,is an important source of food and feed. You
+                                have access to 12,654 maize G2P pairs across 18 different phenotypes. These
+                                profiles cover three geographical areas and the years 2016 and 2017.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card-body fs-5 lh-lg">
-                    <p>Our data collection efforts have focused on three major crop species, and we have transformed
-                        the collected data into three distinct formats: two unstructured data types, namely GVCF and
-                        VCF, and one structured data type called GSCtool features. These datasets, in conjunction with
-                        the available phenotypic data, hold significant potential to drive advancements in the realm of
-                        breeding machine learning.</p>
-                    <p>By incorporating these comprehensive datasets, researchers can leverage them to develop
-                        innovative tools and models in the field. The integration of genomic information (GVCF and VCF)
-                        and structured features (GSCtool) with phenotypic data provides a robust foundation for
-                        advancing breeding machine learning techniques and contributing to the progress of the field as
-                        a whole.</p>
-                </div>
-            </div>
 
-            <div id="ml" class="card mt-4">
-                <div class="card-header">
-                    <h3><a href="{{ url_for('v1.features') }}">ML</a></h3>
+                <div id="download" class="card mt-4">
+                    <div class="card-header gradient-bg">
+                        <h3><a href="{{ url_for('v1.download', species='rice') }}">Download</a></h3>
+                    </div>
+                    <div class="card-body fs-5 lh-lg">
+                        <p>BreedingAIDB provides two forms of unstructured data and one form of structured data, which are
+                            directly applicable in breeding ML. For structured data, we employed the GSCtool to generate
+                            gsctool features, which can be input directly into the G2P model. Unstructured data consists
+                            of VCF (Variant Call Format) and GVCF (genomic VCF) data. All three types of crops G2P pairs
+                            data are accessible through the module.</p>
+                        <ul>
+                            <li><strong>GVCF Files:</strong> Encompassing all loci in the genome (or specific
+                                intervals), regardless of the presence of variants at those loci.</li>
+                            <li><strong>VCF Files:</strong> Contain high-quality Single Nucleotide Polymorphism (SNP)
+                                information, generated through a rigorous genomic analysis process and common filtering
+                                criteria.</li>
+                            <li><strong>GSCtool Features:</strong> Generated by GSCtool, these features can be input
+                                directly into the Genotype-to-Phenotype (G2P) model.</li>
+                        </ul>
+                        <p>For the phenotype data from various data silos, we manually harmonized their labels and
+                            units. Users can select their desired phenotype and obtain phenotype information and the
+                            corresponding genomic data.</p>
+                    </div>
                 </div>
-                <div class="card-body fs-5 lh-lg">
-                    <h4 class="card-title"><a href="{{ url_for('v1.features') }}">Feature Extraction</a></h4>
-                    <p class="card-text">The engine of the feature extraction module is GSCtool, which is designed as a
-                        flexible tool for extracting features from different types of SNPs variation detection result
-                        files. Currently, three major crops are supported: rice, soybean and maize, based on IRGSP 1.0,
-                        Williams 82 and B73 reference genomes, respectively. gsctool is easy to operate, and users can
-                        upload the corresponding variant detection result files for feature extraction. For other
-                        reference genomes, users can use gsctool with the corresponding gff3 files for customised
-                        feature extraction. This module enables users to extract key information from genomic variation
-                        data, laying a solid foundation for subsequent machine learning model construction.</p>
-                    <h4 class="card-title"><a href="{{ url_for('v1.model') }}">Model Construction</a></h4>
-                    <p class="card-text">The machine learning model building module combines the power of optuna and
-                        lightgbm to provide users with a highly customisable model optimisation framework. Within a
-                        predefined hyperparameter space, users can adjust the hyperparameters according to their
-                        specific needs and upload data files obtained from previous feature extraction for model
-                        construction. optuna will search the hyperparameter space to find the best model configuration.
-                        lightgbm, a fast and efficient gradient boosting framework, is able to efficiently process
-                        large-scale data and generate accurate predictive models. The labels in the data files uploaded
-                        by the user will be considered as prediction targets, thus enabling the model construction and
-                        prediction processes to be closely linked.</p>
-                </div>
-            </div>
 
-            <div id="upload" class="card mt-4">
-                <div class="card-header">
-                    <h3><a href="{{ url_for('v1.download', species='rice') }}">Upload</a></h3>
+                <div id="ml" class="card mt-4">
+                    <div class="card-header gradient-bg">
+                        <h3><a href="{{ url_for('v1.features') }}">ML tools</a></h3>
+                    </div>
+                    <div class="card-body fs-5 lh-lg">
+                        <p>BreedingAIDB offers three core functional modules: Feature Extraction, Phenotype Prediction,
+                            and ML Project, each designed to enhance the utility of this database. </p>
+                        <ul>
+                            <li><a href="{{ url_for('v1.features') }}"><strong>Feature Extraction:</strong></a> By uploading the variant detection results (VCF files containing SNP information) generated by using IRGSP 1.0 (rice), B37 (maize), or Williams 82 (soybean) as the reference genome and selecting the applicable reference genome, users can easily complete the feature extraction process using GSCtool, obtaining the essential results to be used in the subsequent analyses and model construction.</li>
+                            <li><a href={{ url_for('v1.predict') }}><strong>Pheno predict:</strong></a> The Phenotype Prediction module offers predictions for grain length and width of rice, which can be easily done by uploading the feature files extracted by GSCtool. Take advantage of accurate phenotype predictions based on your genomic data, paving the way for more informed breeding decisions.</li>
+                            <li><a href="{{ url_for('v1.model') }}"><strong>Model Construction: </strong></a> The module integrating Optuna and lightGBM.Users can upload extracted feature data generated by any feature representation algorithms, just ensuring that the data includes columns with labels, designated by the column name "labels", while all other columns will be treated as feature information. Users can customize the search space of hyperparameters to identify the model configuration that best suits their data. Once the data is uploaded, ML Project will immediately initiate model training and optimization. Following the completion of model training and optimization, ML Project will return a highly optimized lightGBM model with the best hyperparameter configuration for G2P prediction. </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card-body fs-5 lh-lg">
-                    <p class="card-text">This is the upload section of the Help module.</p>
+
+                <div id="upload" class="card mt-4">
+                    <div class="card-header gradient-bg">
+                        <h3><a href="{{ url_for('v1.upload') }}">Upload</a></h3>
+                    </div>
+                    <div class="card-body fs-5 lh-lg">
+                        <p class="card-text">If you wish to contribute your data and to work with specific datasets that
+                            are not available in the database, BreedingAIDB provides two convenient modules: File Upload
+                            and Information Submission.</p>
+                        <ul>
+                            <li class="card-text"><strong>File Upload: </strong> You can upload processed files with
+                                phenotype (labels). </li>
+
+                            <li class="card-text"><strong>Information Submission:</strong> For substantial datasets that
+                                are not available in the database, users can provide relevant information through
+                                Information Submission. We will process the requested datasets and incorporate them into
+                                BreedingAIDB.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ from app.libs.email import mail
 
 def register_blueprints(app):
     from app.api.v1 import create_blueprint_v1
-    app.register_blueprint(create_blueprint_v1(), url_prefix='/BreedingAI/')
+    app.register_blueprint(create_blueprint_v1(), url_prefix='/BreedingAIDB/')
 
 def register_plugin(app):
     from app.models.base import db

@@ -3,51 +3,57 @@
 {{ super() }}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 {% endblock %}
+
+{% block script %}
+{{ super() }}
+{% endblock script %}
 {% block content %}
 <header class="bg-light text-dark text-center py-5">
-    <h1 class="display-4">Feture Extraction</h1>
-    <p class="lead">Feature extracted by GSCtool</p>
+    <div class="container">
+        <h1 class="display-4">Feture Extraction</h1>
+        <p class="lead">The engine of the feature extraction module is GSCtool, a genomic descriptor we developed
+            previously. GSCtool counts the number of single nucleotide polymorphisms (SNPs) located in a gene region
+            based on genomic general feature format (GFF3) and variant call format (VCF).</p>
+    </div>
 </header>
+{% from 'bootstrap5/form.html' import render_field %}
 <div class="container">
-    <section id='introduction'>
-        <br>
-        <p class="lead text-break">The engine of the feature extraction module is GSCtool that we have previously
-            developed. GSCtool counts the number of single nucleotide polymorphisms (SNPs) located in a gene region
-            based on genomic general feature format (GFF3) and variant call format (VCF). </p>
-        <p class="lead text-break">
-            <a
-                href="https://rapdb.dna.affrc.go.jp/download/archive/irgsp1/IRGSP-1.0_representative_2023-03-15.tar.gz">IRGSP-1.0</a>,
-            <a
-                href="https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/glycine_max/Glycine_max.Glycine_max_v2.1.56.gff3.gz">Williams82</a>,
-            <a
-                href="https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/zea_mays/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.56.gff3.gz">Zm-B73</a>
-            are the most commonly used reference genomes for rice, soybean, and maize genome analysis, respectively. You
-            can upload SNPs variant detection files (snp.vcf.gz) for these reference genomes for these species, and this
-            module will complete the GSCtool feature characterisation of the uploaded individuals or populations and
-            return the result files.
-        </p>
-    </section>
-
     <br>
-
-    <section id="function">
-        {% from 'bootstrap5/form.html' import render_field %}
-        <div class="row">
-            <h3 class="text-info"><i class="fas fa-cogs"></i> GSCtool</h3>
+    <div class="row">
+        <!-- 左侧介绍 -->
+        <h2 class="text-info"><i class="fas fa-cogs"></i> GSCtool</h2>
+        <hr>
+        <div class="col-md-6">
+            <p class="lead text-break">
+                <a href="https://rapdb.dna.affrc.go.jp/download/archive/irgsp1/IRGSP-1.0_representative_2023-03-15.tar.gz">IRGSP-1.0</a>,
+                <a href="https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/glycine_max/Glycine_max.Glycine_max_v2.1.56.gff3.gz">Williams82</a>,
+                <a href="https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/zea_mays/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.56.gff3.gz">Zm-B73</a>
+                are the most commonly used reference genomes for rice, soybean, and maize genome analysis, respectively. You
+                can upload SNPs variant detection files (snp.vcf.gz) for these reference genomes for these species, and
+                this module will complete the GSCtool feature characterisation of the uploaded individuals or populations
+                and return the result files.
+            </p>
+            <p class="lead text-break">If you need to perform GSCtool feature extraction on the variant detection results
+                with special reference
+                genomes, you can download <a href="https://github.com/SZJhacker/GSCtool">GSCtool</a> and follow the
+                instructions to complete GSCtool feature extraction locally. </p>
         </div>
-        <div></div>
-        <form method="post" enctype="multipart/form-data">
-            {{ form.csrf_token() }}
-            <p>Please select the spiece that you need to extract</p>
-            {{ render_field(form.species, form_type='inline') }}
-            {{ render_field(form.file) }}
-            {{ render_field(form.submit) }}
-        </form>
-    </section>
-    <section id="Note">
-        <p>If you need to perform GSCtool feature extraction on the variant detection results with special reference
-            genomes, you can download <a href="https://github.com/SZJhacker/GSCtool">GSCtool</a> and follow the
-            instructions to complete GSCtool feature extraction locally. </p>
-    </section>
+
+        <!-- 右侧功能 -->
+        <div class="col-md-6 lead">
+            <form method="post" enctype="multipart/form-data">
+                {{ form.csrf_token() }}
+                <p>Please select the species for feature extraction:</p>
+                {{ render_field(form.species, form_type='inline', class='form-control') }}
+                {{ render_field(form.file, id='inputFile') }}
+                {{ render_field(form.submit) }}
+            </form>
+        </div>
+        <script type="text/javascript">
+            function changeAgentContent(){
+                document.getElementById("inputFileAgent").value = document.getElementById("inputFile").value;
+            }
+        </script>
+    </div>
 </div>
 {% endblock %}
