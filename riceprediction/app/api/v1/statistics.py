@@ -17,9 +17,9 @@ def stats():
     rice = DataVisualization(file_path_rice)
     soy = DataVisualization(file_path_soy)
     zea = DataVisualization(file_path_zea)
-    ricemap = rice.draw_map('Map of rice cultivation distribution')
-    soymap = soy.draw_map('Map of soybean cultivation distribution')
-    zeamap = zea.draw_map('Map of zea cultivation distribution')
+    ricemap = rice.draw_map('Map of rice cultivars')
+    soymap = soy.draw_map('Map of soybean cultivars')
+    zeamap = zea.draw_map('Map of zea cultivars')
     map_charts = {"rice":ricemap,
                   'zea':zeamap,
                   'soy':soymap}

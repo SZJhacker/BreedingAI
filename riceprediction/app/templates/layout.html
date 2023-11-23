@@ -34,12 +34,12 @@
         <div class="nav-bg">
             {% block navbar %}
             <div class="container">
-                <a href="{{ url_for('v1.index') }}"><img class='rounded-pill' height="60" src="{{ url_for('v1.static', filename='logo.svg') }}"
+                <a href="{{ url_for('v1.index') }}"><img class='rounded-pill mt-4 mb-3' height="60" src="{{ url_for('v1.static', filename='logo.svg') }}"
                         alt="BreedingAIDB"></a>
             </div>
             {% from 'bootstrap5/nav.html' import render_nav_item, render_breadcrumb_item %}
             <nav class="navbar navbar-expand-lg navbar-black bg-light bg-opacity-50">
-                <div class="container">
+                <div class="container ps-4 mt-2 mb-2">
                     <ul class="navbar-nav fs-5 text-black fw-bold">
                         {% set nav_items = [
                         {'url': 'v1.index', 'title': 'Home'},
