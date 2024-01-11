@@ -13,11 +13,13 @@ class DataVisualization:
     def __init__(self, csv_file):
         self.data = pd.read_csv(csv_file, dtype={'Years': str})
         self.com_cols = ['Sample_ID', 'Bioproject', 'Name_cn', 'Name', 'Treatment', 'Years', 'location', 'Region', 'Region_cn']
+        self.pheno = self.data.drop(columns=self.com_cols)
         self.pheno_stats = self.data.drop(columns=self.com_cols).count()
         self.data['Counts'] = self.data.drop(columns=self.com_cols).count(axis=1)
         self.labels = self.pheno_stats.index
         self.counts = self.pheno_stats.values
-        self.ftp_temp = 'https://ibi.zju.edu.cn/CropG2PDB/{species}/{datatype}/{sampleid}_{suffix}'
+
+        self.ftp_temp = 'https://ibi.zju.edu.cn/BreedingAI/{species}/{datatype}/{sampleid}_{suffix}'
 
         self.sunfig = go.Figure()
         self.map_chart = Map(init_opts=opts.InitOpts(theme='light'))
@@ -91,5 +93,11 @@ class DataVisualization:
         pheno = self.data[headers].dropna(subset=[pheno_name])
         pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(species=species, datatype=datatype, sampleid=x, suffix=suffix))
         return pheno
-        
+    
+    def plot_heatmap(self, height=1200, width=1200):
+        fig = px.imshow(self.pheno.corr(numeric_only=True),
+            width=width,
+            height=height, 
+            color_continuous_scale='Blues')
+        return self.__figjson(fig)
 

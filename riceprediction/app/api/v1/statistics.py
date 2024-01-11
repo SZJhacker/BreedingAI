@@ -7,9 +7,9 @@ from app.libs.statsplot import DataVisualization
 
 api = Redprint('statistics')
 
-file_path_rice = os.path.join(os.path.dirname(__file__), 'static/rice_sql_raw.csv')
-file_path_soy = os.path.join(os.path.dirname(__file__), 'static/soy_sql_raw.csv')
-file_path_zea = os.path.join(os.path.dirname(__file__), 'static/zea_sql_raw.csv')
+file_path_rice = os.path.join(os.path.dirname(__file__), 'static/rice_sql_raw_co.csv')
+file_path_soy = os.path.join(os.path.dirname(__file__), 'static/soy_sql_raw_co.csv')
+file_path_zea = os.path.join(os.path.dirname(__file__), 'static/zea_sql_raw_co.csv')
 
 
 @api.route('/', endpoint='statistics')
@@ -20,8 +20,16 @@ def stats():
     ricemap = rice.draw_map('Map of rice cultivars')
     soymap = soy.draw_map('Map of soybean cultivars')
     zeamap = zea.draw_map('Map of zea cultivars')
+    
+    ricetraits = rice.plot_heatmap()
+    soytraits = soy.plot_heatmap()
+    zeatraits = zea.plot_heatmap()
+
     map_charts = {"rice":ricemap,
                   'zea':zeamap,
                   'soy':soymap}
+    correlations = {'rice':ricetraits,
+                    'soy':soytraits,
+                    'zea':zeatraits}
     sunfigs = {"rice":rice.draw_sunburst(), 'soy':soy.draw_sunburst(), 'zea':zea.draw_sunburst()}
-    return render_template('statistics.html', map_charts=map_charts, sunfigs=sunfigs)
+    return render_template('statistics.html', map_charts=map_charts, sunfigs=sunfigs, correlations=correlations)

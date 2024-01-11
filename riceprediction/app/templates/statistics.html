@@ -48,7 +48,7 @@
         </div>
     </div>
 
-
+    
     <script type='text/javascript'>
         var graphs_rice = {{ sunfigs['rice'] | safe}};
         Plotly.plot('rice_sun', graphs_rice, {});
@@ -62,17 +62,51 @@
     <!-- 不同年份种植 end -->
     <br>
 
+    <!-- 性状关联图 star -->
+    <div class="row">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link fs-4 active" data-bs-toggle="tab" href="#rice_traits">Rice Trait Correlations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fs-4" data-bs-toggle="tab" href="#soy_traits">Soy Trait Correlations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fs-4" data-bs-toggle="tab" href="#zea_traits">Maize Trait Correlations</a>
+            </li>
+        </ul>
 
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="rice_traits" style="width:1200px;height:1200px;" class="container tab-pane active"></div>
+            <div id="zea_traits" style="width:1200px;height:1200px;" class="container tab-pane fade"></div>
+            <div id="soy_traits" style="width:1200px;height:1200px;" class="container tab-pane fade"></div>
+        </div>
+
+        <script type='text/javascript'>
+            var traits_rice = {{ correlations['rice'] | safe}};
+            Plotly.plot('rice_traits', traits_rice, {});
+    
+            var traits_soy = {{ correlations['soy'] | safe}};
+            Plotly.plot('soy_traits', traits_soy, {});
+    
+            var traits_zea = {{ correlations['zea'] | safe}};
+            Plotly.plot('zea_traits', traits_zea, {});
+        </script>
+    </div>
+    <!-- 性状关联图 end -->
+
+    <!-- 种植分布图 start -->
     <div class="row">
         <div class="container col-lg-12">
             <br>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link fs-4 active" data-bs-toggle="tab" href="#rice">rice</a>
+                    <a class="nav-link fs-4 active" data-bs-toggle="tab" href="#rice">Rice</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-4" data-bs-toggle="tab" href="#soy">soy</a>
+                    <a class="nav-link fs-4" data-bs-toggle="tab" href="#soy">Soy</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-4" data-bs-toggle="tab" href="#zea">Maize</a>
@@ -82,7 +116,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <br>
-                <div id="rice" style="width:1200px;height:860px;" class="container tab-pane active"> </div>
+                <div id="rice" style="width:1200px;height:860px;" class="container tab-pane active"></div>
                 <div id="zea" style="width:1200px;height:860px;" class="container tab-pane fade"></div>
                 <div id="soy" style="width:1200px;height:860px;" class="container tab-pane fade"></div>
             </div>
@@ -109,10 +143,11 @@
                 });
                                             
             </script>
-
         </div>
-
     </div>
+    <!-- 种植分布图 end -->
+
+
 
 </div>
 

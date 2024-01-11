@@ -15,14 +15,15 @@ cloned_gene = os.path.join(os.path.dirname(__file__), 'static/file/cloned.genes.
 def predict():
     fileform = UploadFile()
     if request.method == 'POST' and fileform.validate_on_submit():
-        print('完成提交')
         headers = pd.read_csv(cloned_gene)
-        features = pd.read_csv(fileform.file.data, usecols=headers['0'].values.tolist()).values
+        features_file = pd.read_csv(fileform.file.data, index_col='sample')
+        samples = features_file.index.tolist()
+        features = features_file[headers['0'].values.tolist()].values
         features = features.reshape(-1, 1, features.shape[1]).astype(np.float32)
         gw_model = joblib.load(gru_gw_path)  # 加载训练好的模型
         gl_model = joblib.load(gru_gl_path)
         gw_result = gw_model.predict(features)
         gl_result = gl_model.predict(features)
-        result_data = [{'gw': gw, 'gl': gl} for gw, gl in zip(gw_result, gl_result)]
+        result_data = [{'sample': sample, 'gw': gw, 'gl': gl} for sample, gw, gl in zip(samples, gw_result, gl_result)]
         return render_template('predict_result.html', result_data=result_data)
     return render_template('predict.html', form=fileform)

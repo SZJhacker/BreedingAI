@@ -34,6 +34,7 @@
     <table class="table table-bordered text-center">
         <thead>
             <tr class="table-active">
+                <th>Sample</th>
                 <th>GW Prediction (mm)</th>
                 <th>GL Prediction (mm)</th>
             </tr>
@@ -41,6 +42,7 @@
         <tbody>
             {% for data in result_data %}
                 <tr>
+                    <td>{{ data.sample }}</td>
                     <td>{{ data.gw[0] | round(2) }}</td>
                     <td>{{ data.gl[0] | round(2) }}</td>
                 </tr>

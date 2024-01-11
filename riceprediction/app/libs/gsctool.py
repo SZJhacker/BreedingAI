@@ -11,10 +11,10 @@ class GenomeFeature:
         "1|0": 1, "1/1": 2, "1|1": 2
     }
 
-    def __init__(self, gff_file, vcf_file, outfile):
+    def __init__(self, gff_file, vcf_file):
         self.gff_file = gff_file
         self.vcf_file = vcf_file
-        self.outfile = outfile
+        # self.outfile = outfile
         self.meta_info = []
         self.header_info = []
         self.descriptor = {}
@@ -73,5 +73,5 @@ class GenomeFeature:
                             self.meta_info.append(line.strip())
                         else:
                             self.header_info.append(line.strip())
-        pd.DataFrame(self.descriptor,
-                index=self.header_info[0].split('\t')[9:]).to_csv(self.outfile)
+        return pd.DataFrame(self.descriptor,
+                index=self.header_info[0].split('\t')[9:])

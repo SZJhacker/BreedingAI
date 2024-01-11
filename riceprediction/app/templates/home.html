@@ -185,23 +185,29 @@
             <h1 class="blue-gradient">ML Tools</h1>
             <div class="row mt-3 d-flex justify-content-around">
                 <div class="col-md p-3">
-                    <img class='rounded' style="height: 175px;" src={{ url_for('v1.static',
-                        filename='img/feature_extract.jpg' ) }} alt="feature extraction">
+                    <a href={{ url_for('v1.features') }}>
+                        <img class='rounded' style="height: 175px;" src={{ url_for('v1.static',
+                            filename='img/feature_extract.jpg' ) }} alt="feature extraction">
+                    </a>
                     <h4 class="blue-gradient mt-4">Feature Extraction</h4>
                     <p class="lead">The module utilizes GSCtool to extract
                         essential genomic features.</p>
                 </div>
                 <div class="col-md p-3">
-                    <img class='rounded' style="height: 175px;" src={{ url_for('v1.static', filename='img/g2p.jpg' ) }}
+                    <a href={{ url_for('v1.predict') }}>
+                        <img class='rounded' style="height: 175px;" src={{ url_for('v1.static', filename='img/g2p.jpg' ) }}
                         alt="Phenotype Prediction">
+                    </a>
                     <h4 class="blue-gradient mt-4">Phenotype Prediction</h4>
                     <p class="lead">The module offers predictions for grain length
                         and width of rice, which can be easily done by uploading the feature files extracted by GSCtool
                     </p>
                 </div>
                 <div class="col-md p-3">
-                    <img class='rounded' style="height: 175px;" src={{ url_for('v1.static', filename='img/AI2.jpg' ) }}
-                        alt="ML Project">
+                    <a href={{ url_for('v1.model') }}>
+                        <img class='rounded' style="height: 175px;" src={{ url_for('v1.static', filename='img/AI2.jpg' ) }}
+                            alt="ML Project">
+                    </a>
                     <h4 class="blue-gradient mt-4">ML Project</h4>
                     <p class="lead">The module integrates Optuna and lightGBM to allow users to
                         customize and optimize ML models

@@ -18,9 +18,10 @@ from app.validations.lgbPara import SearchSpace
 
 api = Redprint('model')
 
+
 def generate_name():
     timestamp = int(time.time())
-    pkl = os.path.join(current_app.instance_path, 'tmp', f'lgb.{timestamp}.pkl')
+    pkl = os.path.join(os.path.dirname(__file__), 'static/tmp', f'lgb.{timestamp}.pkl')
     return pkl
 
 def figjson(fig):
