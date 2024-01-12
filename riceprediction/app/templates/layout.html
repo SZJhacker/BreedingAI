@@ -10,9 +10,15 @@
     {% block styles %}
     <!-- Bootstrap CSS -->
     {{ bootstrap.load_css() }}
+    <style>        
+        .blue-gradient {
+            background: -webkit-linear-gradient(left, rgb(1, 39, 136), rgb(187, 211, 241));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
-    
+        
     {% endblock %}
 
     {% block script %}
