@@ -89,7 +89,7 @@ class DataVisualization:
         return self.__figjson(fig)
         
     def construct_table(self, pheno_name, species='rice', datatype='GVCF', suffix='raw.g.vcf.gz'):
-        headers = ['Sample_ID', 'Name', pheno_name, 'Years', 'Region']
+        headers = ['Sample_ID', 'Bioproject', 'Name', pheno_name, 'Years', 'Region']
         pheno = self.data[headers].dropna(subset=[pheno_name])
         pheno['Download'] = pheno['Sample_ID'].apply(lambda x: self.ftp_temp.format(species=species, datatype=datatype, sampleid=x, suffix=suffix))
         return pheno

@@ -27,7 +27,7 @@ services:
             - TZ=Asia/Shanghai
         restart: always
         ports:
-            - "8000:5000" # 与配置文件保持一致
+            - "5000:5000" # 与配置文件保持一致
         networks:
             - net
         tty: true

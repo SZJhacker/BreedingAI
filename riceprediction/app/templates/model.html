@@ -35,13 +35,21 @@
                     <legend class="text-info border-bottom mb-4"><i class="fas fa-cogs mt-1"></i> Boosting Type and
                         Metrics</legend>
                     <div class="form-group row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder">Boosting type:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder">
+                            <span data-bs-toggle="tooltip" title="The type of boosting algorithm to use.">
+                                Boosting type:
+                            </span>
+                        </div>
                         <div class="col-md-9 mt-2">
                             {{ render_field(space.boosting_type, form_type='inline') }}
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder">Metrics:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder">
+                            <span data-bs-toggle="tooltip" title="The evaluation metric(s) to be used for training.">
+                                Metrics:
+                            </span>                
+                        </div>
                         <div class="col-md-9 mt-2">
                             {{ render_field(space.metric, form_type='inline') }}
                         </div>
@@ -54,7 +62,11 @@
                         Learning Rates</legend>
                     <div class="row">
                         <div for="{{ space.n_estimators_min.id }}"
-                            class="col-md-3 col-form-label text-md-end fw-bolder">N_estimators:</div>
+                            class="col-md-3 col-form-label text-md-end fw-bolder">
+                            <span data-bs-toggle="tooltip" title="The number of boosting rounds (trees) to be run.">
+                                N_estimators:
+                            </span>
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3 text-center">
@@ -68,7 +80,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Learning Rate:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="The step size shrinkage used in update to prevents overfitting.">
+                                Learning Rate:
+                            </span>
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -89,7 +105,11 @@
                     <!-- Repeat the same structure for other parameters -->
                     <legend class="text-info border-bottom mb-4"><i class="fas fa-tree"></i> Tree Parameters</legend>
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Max depth:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="The maximum depth of the tree.">
+                                Max depth:
+                            </span>
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -104,7 +124,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Leaves:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="The number of leaves to be specified for each tree.">
+                                Leaves:
+                            </span>
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -119,7 +143,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Min child:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="Minimum sum of instance weight (hessian) needed in a child.">
+                                Min child:
+                            </span>
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -141,7 +169,10 @@
                     <legend class="text-info border-bottom mb-4"><i class="fas fa-random"></i> Fractional Parameters
                     </legend>
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Features fraction:
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="Fraction of features to be randomly sampled for each tree.">
+                                Features fraction:
+                            </span>
                         </div>
                         <div class="col-md-9">
                             <div class="row">
@@ -157,7 +188,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Bagging fraction:
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="Fraction of data to be randomly sampled for each boosting round.">
+                                Bagging fraction:
+                            </span>
                         </div>
                         <div class="col-md-9">
                             <div class="row">
@@ -180,7 +214,11 @@
                     <legend class="text-info border-bottom mb-4"><i class="fas fa-balance-scale"></i> Regularization
                         Parameters</legend>
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Lambda L1:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="L1 regularization term on weights. It encourages sparsity.">
+                                Lambda L1:
+                            </span>
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -195,7 +233,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">Lambda L2:</div>
+                        <div class="col-md-3 col-form-label text-md-end fw-bolder text-capitalize">
+                            <span data-bs-toggle="tooltip" title="L2 regularization term on weights. It is commonly used to prevent overfitting.">
+                                Lambda L2:
+                            </span>                    
+                        </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-3">
@@ -214,13 +256,18 @@
                 <!-- Remaining Fields -->
                 <br>
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label text-md-end fw-bolder">Trails:</label>
+                    <label class="col-md-3 col-form-label text-md-end fw-bolder">
+                        <span data-bs-toggle="tooltip" title="Number of optimization trials.">Trails:</span>
+                    </label>
                     <div class="col-md-6">
                         {{ render_field(space.trails, form_type='inline') }}
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label text-md-end fw-bolder">Seed:</label>
+                    <label class="col-md-3 col-form-label text-md-end fw-bolder">
+                        <span data-bs-toggle="tooltip" title="Random seed for reproducibility.">Seed:</span>
+                    </label>
+                    </label>
                     <div class="col-md-6">
                         {{ render_field(space.seed, form_type='inline') }}
                     </div>
@@ -241,6 +288,12 @@
 
             </form>
         </div>
+        <script>
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        </script>        
     </div>
 </div>
 {% endblock %}

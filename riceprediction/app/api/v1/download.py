@@ -19,17 +19,17 @@ def process(file_path, phenoname, species):
     return (pheno, [gvcftable, vcftable, gsctable], graphJSON)
 
 def rice():
-    file_path = os.path.join(os.path.dirname(__file__), 'static/rice_sql_raw.csv')
-    phenoname = request.form.get('data', 'Whiteness Degree of Complete Grain (%)')
+    file_path = os.path.join(os.path.dirname(__file__), 'static/rice_sql_raw_co.csv')
+    phenoname = request.form.get('data', 'CO_320:0001244 Whiteness Degree of Complete Grain (%)')
     return process(file_path, phenoname, 'rice')
 
 def soy():
-    file_path = os.path.join(os.path.dirname(__file__), 'static/soy_sql_raw.csv')
+    file_path = os.path.join(os.path.dirname(__file__), 'static/soy_sql_raw_co.csv')
     phenoname = request.form.get('data', 'Number of one seed per pod')
     return process(file_path, phenoname, 'soy')
 
 def zea():
-    file_path = os.path.join(os.path.dirname(__file__), 'static/zea_sql_raw.csv')
+    file_path = os.path.join(os.path.dirname(__file__), 'static/zea_sql_raw_co.csv')
     phenoname = request.form.get('data', 'Upper leaf number')
     return process(file_path, phenoname, 'zea')
 

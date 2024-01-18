@@ -9,24 +9,67 @@
 <header class="bg-light bg-gradient text-dark text-center py-5">
     <div class="container">
         <h1>Phenotype Prediction</h1>
-        <p class="lead"> The module offers predictions for grain length and width of rice, which can be easily done by uploading the feature files extracted by GSCtool </p>
+        <p class="lead"> The module offers predictions for grain length and width of rice, which can be easily done by
+            uploading the feature files extracted by GSCtool </p>
     </div>
 </header>
 <br>
 
-<div class="container">
+<div class="container p-5 mt-3">
     <div class="col-md-10 offset-md-1">
-    <form method="POST" enctype="multipart/form-data">
-        {{ form.csrf_token() }}
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-end fw-bolder">Upload <a href={{ url_for('v1.features') }}>GSCtool</a> features:</label>
-            <div class="col-md-6">
-                {{ render_field(form.file, form_type='inline') }}
-                <p class="text-start"><a href="{{ url_for('v1.static', filename='example/gsctool_nolabel.csv') }}" download>Download Example File</a></p>
-                {{ render_field(form.submit,class="text-center") }}
-            </div>
+        <h1 class="blue-gradient">Model Performance</h1>
+        <div class="row mt-3 p-3">
+            <table class="table table-hover fs-5">
+                <thead>
+                    <tr class="table-success">
+                        <th>Traits</th>
+                        <th>R<sup>2</sup></th>
+                        <th>MAE</th>
+                        <th>r</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grain Width</td>
+                        <td>0.58</td>
+                        <td>0.06</td>
+                        <td>0.82</td>
+                    </tr>
+                    <tr>
+                        <td>Grain Length</td>
+                        <td>0.57</td>
+                        <td>0.41</td>
+                        <td>0.76</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </form>
+        <div class="row">
+            <p class="fs-5" style="font-style: italic; color: gray;">Note: R<sup>2</sup>: coefficient of
+                determination, MAE: mean absolute error, and r:
+                pearson correlation coefficient.</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-3 p-5">
+    <div class="col-md-10 offset-md-1">
+        <h1 class="blue-gradient">Prediction for Grain width and length of rice</h1>
+        <form method="POST" enctype="multipart/form-data" class="fs-5 offset-md-1 mt-3">
+            {{ form.csrf_token() }}
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-end fw-bolder">Upload <a href={{ url_for('v1.features')
+                        }}>GSCtool</a> features:</label>
+                <div class="col-md-6">
+                    {{ render_field(form.file, form_type='inline') }}
+                    <p class="text-grey text-start"><small>Upload GSCtool feature file with sample name, which are identified by the column named "sample".<a href="{{ url_for('v1.static', filename='example/gsctool_nolabel.csv') }}"
+                            download>Download Example File</a></small></p>
+                    {{ render_field(form.submit,class="text-center") }}
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 {% endblock content %}
