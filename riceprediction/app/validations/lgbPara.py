@@ -11,8 +11,8 @@ class SearchSpace(FlaskForm):
         'Boosting Type',
         choices=[('gbdt', 'gbdt'),
                  ('Random Forest', 'rf'),
-                 ('Dropouts meet Multiple Additive Regression Trees', 'dart'),
-                 ('Gradient-based One-Side Sampling', 'goss')],
+                 ('Dropouts meet Multiple Additive Regression Trees', 'dart')
+                 ],
         default='gbdt')
     metric = RadioField('Metrics',
                         choices=[('mse', 'mse'),

@@ -15,7 +15,6 @@
 {% block script %}
 {{ super() }}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type="text/javascript" language="javascript"
     src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript"
@@ -32,6 +31,7 @@
 
 
 {% block content %}
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 {% macro render_table(idname,columns, rows) %}
 <table id="{{ idname }}" class="myTable table diaplay" style="width:100%">
     <thead class="table-dark">

@@ -19,7 +19,7 @@ class DataVisualization:
         self.labels = self.pheno_stats.index
         self.counts = self.pheno_stats.values
 
-        self.ftp_temp = 'https://ibi.zju.edu.cn/BreedingAI/{species}/{datatype}/{sampleid}_{suffix}'
+        self.ftp_temp = 'http://ibi.zju.edu.cn/BreedingAI/{species}/{datatype}/{sampleid}_{suffix}'
 
         self.sunfig = go.Figure()
         self.map_chart = Map(init_opts=opts.InitOpts(theme='light'))
@@ -31,7 +31,7 @@ class DataVisualization:
     @staticmethod
     def build_hierarchical_dataframe(totol_name, phenos):
         sun_tree = pd.DataFrame(columns=['id', 'parent', 'counts'])
-        sun_tree['id'] = phenos.index
+        sun_tree['id'] = "Year: "+ phenos.index
         sun_tree['counts'] = phenos.values
         sun_tree['parent'] = totol_name
         sun_tree.loc[len(sun_tree)] = [totol_name, '', sun_tree['counts'].sum()]
@@ -52,7 +52,7 @@ class DataVisualization:
         return json_result
     
     def draw_sunburst(self):
-        total_name = 'Total genome-pheno pairs'
+        total_name = 'Total G2P paired data'
         df_years = self.data[['Years', 'Counts']]
         df_years = df_years.groupby('Years')['Counts'].sum()
         sun_trees = self.build_hierarchical_dataframe(total_name, df_years)
@@ -63,8 +63,9 @@ class DataVisualization:
             parents=sun_trees['parent'],
             values=sun_trees['counts'],
             branchvalues='total',
-            hovertemplate='<b>%{label} </b> <br> Sales: %{value}<br>',
-            textinfo='label+value'
+            hovertemplate='<b>%{label}</b> <br> Samples: %{value}<br>',
+            textinfo='text',
+            text=sun_trees['id'] + "<br>Samples: " + sun_trees['counts'].astype(str)
         ))
 
         self.sunfig.update_layout(margin=dict(t=10, l=10, r=10, b=10))

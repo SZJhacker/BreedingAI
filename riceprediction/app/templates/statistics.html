@@ -4,22 +4,21 @@
 {{ super() }}
 <script type="text/javascript" src="{{ url_for('v1.static', filename='js/echarts.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('v1.static', filename='js/china.js') }}"></script>
-<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-<!-- <script src="{{ url_for('v1.static', filename='js/plotly.min.js') }}" charset="utf-8"></script> -->
+<!-- <script type="text/javascript"  src="{{ url_for('v1.static', filename='js/plotly.min.js') }}"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}
 
 
 {% block content %}
 <br>
-
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <!-- 作物不同年份种植情况 -->
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 sty>Rice G2P pairs data</h4>
+                    <h4 sty>Rice G2P paired data</h4>
                 </div>
                 <div class="card-body">
                     <div id="rice_sun"></div>
@@ -29,7 +28,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Soybean G2P pairs data</h4>
+                    <h4>Soybean G2P paired data</h4>
                 </div>
                 <div class="card-body">
                     <div id="soy_sun"></div>
@@ -39,7 +38,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Maize G2P pairs data</h4>
+                    <h4>Maize G2P paired data</h4>
                 </div>
                 <div class="card-body">
                     <div id="zea_sun"></div>

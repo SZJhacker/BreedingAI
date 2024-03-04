@@ -21,7 +21,7 @@ api = Redprint('model')
 
 def generate_name():
     timestamp = int(time.time())
-    pkl = os.path.join(os.path.dirname(__file__), 'static/tmp', f'lgb.{timestamp}.pkl')
+    pkl = os.path.join(os.path.dirname(__file__), 'static/tmp', f'lgb.{timestamp}.joblib')
     return pkl
 
 def figjson(fig):
