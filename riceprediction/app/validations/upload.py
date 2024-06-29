@@ -19,7 +19,7 @@ class UploadFilegz(UploadFile):
                     FileSize(max_size=100 * 1024 * 1024, message='File size should be less than 100 MB')])
     species = SelectField(
         'Species',  # 显示的标签
-        choices=[('rice', 'Rice'), ('soybean', 'Soybean'), ('zea', 'Zea')],  # 选项列表
+        choices=[('rice', 'Rice'), ('soybean', 'Soybean'), ('maize', 'Maize')],  # 选项列表
         default='rice'  # 默认选项
     )
 

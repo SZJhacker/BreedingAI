@@ -2,7 +2,7 @@
 Author: shenzijie
 Date: 2022-10-10 09:25:33
 LastEditors: shenzijie
-LastEditTime: 2024-01-12 15:59:31
+LastEditTime: 2024-04-17 10:27:12
 Email: shenzijie2013@163.com
 '''
 #!/usr/bin/env python
@@ -15,7 +15,7 @@ Email: shenzijie2013@163.com
 
 from flask import Blueprint, render_template
 from app.api.v1 import home, statistics, download, about, upload, features, model, predict
-from app.api.v1 import home_cn, blast_cn,  about_cn, model_cn
+# from app.api.v1 import home_cn, blast_cn,  about_cn, model_cn
 
 
 
@@ -33,10 +33,10 @@ def create_blueprint_v1():
     about.api.register(bp_v1)
     
 
-    home_cn.api.register(bp_v1)
-    blast_cn.api.register(bp_v1)
-    model_cn.api.register(bp_v1)
-    about_cn.api.register(bp_v1)
+    # home_cn.api.register(bp_v1)
+    # blast_cn.api.register(bp_v1)
+    # model_cn.api.register(bp_v1)
+    # about_cn.api.register(bp_v1)
 
     @bp_v1.app_errorhandler(404)
     def page_not_found(e):

@@ -35,16 +35,21 @@
         <thead>
             <tr class="table-active">
                 <th>Sample</th>
-                <th>GW Prediction (mm)</th>
+                <th>Panicle Number (num)</th>
+                <th>Plant Height (cm)</th>
                 <th>GL Prediction (mm)</th>
+                <th>GW Prediction (mm)</th>
             </tr>
         </thead>
         <tbody>
             {% for data in result_data %}
                 <tr>
                     <td>{{ data.sample }}</td>
-                    <td>{{ data.gw[0] | round(2) }}</td>
+                    <td>{{ data.pn[0] | round(2) }}</td>
+                    <td>{{ data.ph[0] | round(2) }}</td>
                     <td>{{ data.gl[0] | round(2) }}</td>
+                    <td>{{ data.gw[0] | round(2) }}</td>
+
                 </tr>
             {% endfor %}
         </tbody>
